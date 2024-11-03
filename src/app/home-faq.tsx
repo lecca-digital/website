@@ -34,9 +34,10 @@ export function HomeFAQ() {
           </svg>
           <h2 className="text-4xl font-semibold">Frequently Asked Questions</h2>
           <p>
-            We're dedicated to providing our customers with the best support
-            possible. If you have any questions, please feel free to reach out
-            to us at <span className="underline">support@lecca.io</span>.
+            We&apos;re dedicated to providing our customers with the best
+            support possible. If you have any questions, please feel free to
+            reach out to us at{" "}
+            <span className="underline">support@lecca.io</span>.
           </p>
         </div>
         <div className="flex-1 w-full">

@@ -4,7 +4,8 @@ export function HomeContactUs() {
       <div className="flex flex-col items-center justify-center max-w-3xl p-8 rounded-lg">
         <h2 className="text-3xl font-semibold text-center mb-4">Contact Us</h2>
         <p className="text-center mb-8">
-          We'd love to hear from you! Reach out to us through LinkedIn or email.
+          We&apos;d love to hear from you! Reach out to us through LinkedIn or
+          email.
         </p>
         <div className="flex space-x-6">
           <a
