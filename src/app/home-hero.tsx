@@ -13,7 +13,7 @@ export function HomeHero() {
     <HeroParallax apps={apps}>
       <div className="p-2 xl:p-0 max-w-7xl">
         <Link href="https://docs.lecca.io/apps/web" target="_blank">
-          <div className="hidden md:flex items-center justify-center mb-28 space-x-2">
+          <div className="hidden lg:flex items-center justify-center mb-28 space-x-2">
             <Badge variant={"default"} className="px-4 space-x-2">
               <span className="text-sm">
                 Web extraction and phone calling now available
@@ -24,7 +24,7 @@ export function HomeHero() {
             </Badge>
           </div>
         </Link>
-        <div className="flex flex-col lg:flex-row lg:justify-between items-center">
+        <div className="flex flex-col xl:flex-row lg:justify-between items-center">
           <div className="flex flex-col space-y-6">
             <h3 className="text-muted-foreground font-light">Lecca.io</h3>
             <h1 className="text-3xl md:text-5xl font-semibold max-w-[900px] animate-fade-in">
@@ -43,7 +43,7 @@ export function HomeHero() {
               Lecca.io is a no-code platform for building AI agents & workflow
               automations.
             </h2>
-            <div className="space-x-2">
+            <div className="space-x-2 flex flex-col sm:flex-row gap-4">
               <Button
                 asChild
                 className="opacity-0 animate-fade-in-delayed-1s"
@@ -64,7 +64,7 @@ export function HomeHero() {
               </Button>
             </div>
           </div>
-          <div className="max-w-[650px] mt-10 sm:mt-0">
+          <div className="max-w-[650px] mt-10 lg:mt-0 px-10">
             <Image
               src="/gifs/demo-gif-light.gif"
               alt="Workflow Demo"
@@ -82,7 +82,7 @@ export function HomeHero() {
           </div>
         </div>
         <div
-          className="absolute left-0 right-0 -bottom-32 hidden sm:flex items-center justify-center flex-col animate-pulse"
+          className="absolute left-0 right-0 -bottom-32 hidden lg:flex items-center justify-center flex-col animate-pulse"
           onClick={() => {
             window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
           }}
