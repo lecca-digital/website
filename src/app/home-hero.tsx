@@ -64,7 +64,7 @@ export function HomeHero() {
               </Button>
             </div>
           </div>
-          <div className="max-w-[650px] mt-10 lg:mt-0 px-10">
+          <div className="max-w-[650px] mt-10 lg:mt-0 lg:px-10">
             <Image
               src="/gifs/demo-gif-light.gif"
               alt="Workflow Demo"

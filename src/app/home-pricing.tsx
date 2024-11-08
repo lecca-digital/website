@@ -22,8 +22,13 @@ export function HomePricing() {
     >
       <div className="text-center space-y-2">
         <h2 className="text-4xl font-semibold">Pricing</h2>
-        <h3 className="text-xl text-muted-foreground max-w-[250px] sm:max-w-full">
+        <h3 className="text-lg text-muted-foreground max-w-[250px] sm:max-w-full">
           Start for free and upgrade as you grow
+        </h3>
+        <h3 className="text-lg max-w-[250px] sm:max-w-full">
+          Our platform runs on credits. <br />
+          Runs use 1 credit. AI steps, Web, and Phone calling all use credits as
+          well.
         </h3>
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-10 max-w-6xl">
@@ -38,29 +43,23 @@ export function HomePricing() {
             <ul className="space-y-2">
               <Feature title="1 User" />
               <Feature title="1 Project" />
-              <Feature title="1 Knowledge Notebook" />
-              <Feature title="3 Workflows" />
-              <Feature title="3 Agents" />
-              <Feature title="7,000 credits per day" />
+              <Feature title="500 credits per month" />
+              <Feature title="Unlimited Workflows" />
+              <Feature title="Unlimited Agents" />
               <Feature title="Unlimited Variables" />
               <Feature title="Unlimited Connections" />
               <Feature title="Access to all apps" />
-              <Feature title="15 minute polling trigger" />
+              <Feature title="1 hour polling trigger" />
               <Feature title="Execution history 3 days" />
               <Feature title="Agent task history 3 days" />
             </ul>
           </CardContent>
-          <CardFooter>
-            <p className="text-muted-foreground text-xs">
-              *Unlimited within reason
-            </p>
-          </CardFooter>
         </Card>
         <Card>
           <CardHeader>
             <CardTitle>Professional</CardTitle>
             <CardDescription className="text-2xl font-bold">
-              <span>$99.00</span>
+              <span>$20.00</span>
               <span className="text-sm">/ month</span>
             </CardDescription>
           </CardHeader>
@@ -71,8 +70,8 @@ export function HomePricing() {
               <Feature title="Unlimited Workflows" />
               <Feature title="Unlimited Agents" />
               <Feature title="Unlimited Knowledge Notebooks" />
-              <Feature title="200,000 credits per day" />
-              <Feature title="5 minute polling trigger" />
+              <Feature title="1500 credits per month" />
+              <Feature title="15 minute polling trigger" />
               <Feature title="Execution history 1 week" />
               <Feature title="Agent task history 1 week" />
             </ul>
@@ -88,17 +87,20 @@ export function HomePricing() {
           <CardHeader>
             <CardTitle>Team</CardTitle>
             <CardDescription className="text-2xl font-bold">
-              <span>$300.00</span>
+              <span>$50.00</span>
               <span className="text-sm">/ month</span>
             </CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
               <Feature title="Unlimited Users" />
-              <Feature title="800,000 credits per day" />
+              <Feature title="Unlimited Projects" />
+              <Feature title="Unlimited Workflows" />
+              <Feature title="Unlimited Agents" />
+              <Feature title="Unlimited Knowledge Notebooks" />
+              <Feature title="5000 credits per month" />
               <Feature title="Priority support" />
               <Feature title="Priority apps integrations" />
-              <Feature title="1 minute polling trigger" />
             </ul>
           </CardContent>
           <CardFooter>
