@@ -25,11 +25,6 @@ export function HomePricing() {
         <h3 className="text-lg text-muted-foreground max-w-[250px] sm:max-w-full">
           Start for free and upgrade as you grow
         </h3>
-        <h3 className="text-lg max-w-[250px] sm:max-w-full">
-          Our platform runs on credits. <br />
-          Runs use 1 credit. AI steps, Web, and Phone calling all use credits as
-          well.
-        </h3>
       </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-10 max-w-6xl">
         <Card>
@@ -43,7 +38,7 @@ export function HomePricing() {
             <ul className="space-y-2">
               <Feature title="1 User" />
               <Feature title="1 Project" />
-              <Feature title="500 credits per month" />
+              <Feature title="250 credits per month" />
               <Feature title="Unlimited Workflows" />
               <Feature title="Unlimited Agents" />
               <Feature title="Unlimited Variables" />
@@ -112,10 +107,10 @@ export function HomePricing() {
         </Card>
       </div>
       <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 items-center">
-        <h3 className="text-muted-foreground">No Credit Card Required</h3>
+        <h3 className="text-muted-foreground">Learn more about</h3>
         <Button asChild>
-          <Link href="https://app.lecca.io" className="space-x-2">
-            <span>Start Building</span>
+          <Link href="https://docs.lecca.io/credits" className="space-x-2">
+            <span>Credit Usage</span>
             <ChevronRightIcon className="size-5" />
           </Link>
         </Button>

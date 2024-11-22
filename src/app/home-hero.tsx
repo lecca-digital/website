@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { apps, HeroParallax } from "@/components/hero-parallax";
@@ -6,9 +7,39 @@ import { Button } from "@/components/ui/button";
 import { ChevronDownIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Typewriter } from "react-simple-typewriter";
 
 export function HomeHero() {
+  // State to track theme
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Function to determine the current theme
+  const getTheme = () => {
+    return (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    );
+  };
+
+  // Effect to set initial theme and listen for changes
+  useEffect(() => {
+    setIsDarkMode(getTheme());
+
+    const handleThemeChange = (e: any) => {
+      setIsDarkMode(e.matches);
+    };
+
+    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+    darkThemeMq.addListener(handleThemeChange);
+
+    return () => {
+      darkThemeMq.removeListener(handleThemeChange);
+    };
+  }, []);
+
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   return (
     <HeroParallax apps={apps}>
       <div className="p-2 xl:p-0 max-w-7xl">
@@ -24,7 +55,7 @@ export function HomeHero() {
             </Badge>
           </div>
         </Link>
-        <div className="flex flex-col xl:flex-row lg:justify-between items-center">
+        <div className="flex flex-col lg:px-20 2xl:px-0 xl:flex-row lg:justify-between items-center">
           <div className="flex flex-col space-y-6">
             <h3 className="text-muted-foreground font-light">Lecca.io</h3>
             <h1 className="text-3xl md:text-5xl font-semibold max-w-[900px] animate-fade-in">
@@ -65,19 +96,29 @@ export function HomeHero() {
             </div>
           </div>
           <div className="max-w-[650px] mt-10 lg:mt-0 lg:px-10">
-            <Image
-              src="/gifs/demo-gif-light.gif"
+            {!isImageLoaded && (
+              <img
+                src={""}
+                alt="Workflow Demo"
+                width={1900}
+                height={800}
+                onLoad={() => setIsImageLoaded(true)}
+                className={`rounded-md border-4 shadow-lg lg:scale-125 lg:ml-10 invisible`}
+              />
+            )}
+            <img
+              src={
+                isDarkMode
+                  ? "/gifs/demo-gif-dark.gif"
+                  : "/gifs/demo-gif-light.gif"
+              }
               alt="Workflow Demo"
               width={1900}
               height={800}
-              className="rounded-md border-4 shadow-lg block dark:hidden lg:scale-125 lg:ml-10"
-            />
-            <Image
-              src="/gifs/demo-gif-dark.gif"
-              alt="Workflow Demo"
-              width={1900}
-              height={800}
-              className="rounded-md border-4 shadow-lg hidden dark:block lg:scale-125 lg:ml-10"
+              onLoad={() => setIsImageLoaded(true)}
+              className={`rounded-md border-4 shadow-lg lg:scale-125 lg:ml-10 ${
+                isImageLoaded ? "block animate-fade-in" : "hidden"
+              }`}
             />
           </div>
         </div>
