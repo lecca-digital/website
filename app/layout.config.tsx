@@ -1,4 +1,5 @@
-import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
+import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
+import Image from "next/image";
 
 /**
  * Shared layout configurations
@@ -9,13 +10,35 @@ import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
  */
 export const baseOptions: BaseLayoutProps = {
   nav: {
-    title: 'My App',
+    title: (
+      <div className="flex items-center space-x-2">
+        <Image
+          src="/branding/lecca-io.svg"
+          width={20}
+          height={20}
+          alt="Lecca.io Logo"
+          className="rounded-full"
+        />
+        <span>Lecca.io</span>
+      </div>
+    ),
   },
   links: [
     {
-      text: 'Documentation',
-      url: '/docs',
-      active: 'nested-url',
+      text: "Documentation",
+      url: "/docs/overview",
+      active: "nested-url",
+    },
+    {
+      text: "Tools",
+      url: "/tools",
+      active: "url",
+    },
+    {
+      text: "AI Providers",
+      url: "/ai-providers",
+      active: "url",
     },
   ],
+  githubUrl: "https://github.com/lecca-digital/lecca-io",
 };

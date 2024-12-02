@@ -1,0 +1,86 @@
+---
+title: Agents
+---
+
+Agents in Lecca.io function by having instructions, tools, and triggers to perform the task or respond to the message they are given.
+
+## Tools
+
+Tools are another name for `actions`. They are either an integrations with third party apps or are provided directly by Lecca.io to execute some sort of function.
+
+<Callout>
+  Tools are the same actions you can add to a workflow. The only difference is
+  that any field in the action configuration you leave empty, the AI will fill
+  in for you if deemed necessary.
+</Callout>
+
+### Configuring Tools
+
+When giving the agent a tool and configuring it, follow these steps:
+
+<Steps>
+  <Step>
+    ### Edit the tool name
+
+    Editing the name will allow the agent to know what the tool does
+
+  </Step>
+  <Step>
+    ### Edit the tool description
+
+    Gives the agent an idea of when or how to use the tool
+
+  </Step>
+  <Step>
+    ### Select the connection
+
+    If applicable, select the required connection for the tool to work
+
+  </Step>
+  <Step>
+    ### Fill in fields
+
+    Fill in the fields you don't want the agent to worry about. Only the empty fields will be given to the agent to fill in if it deems it necessary to accomplish the task.
+
+    Then your pre-filled fields and the agent's fields will be combined when the tool is used.
+
+  </Step>
+  <Step>
+    ### Save
+  </Step>
+</Steps>
+
+## Advanced Settings
+
+### Instructions
+
+This is the system prompt or behavior the llm model will attempt to follow when responding.
+
+### AI Provider, Model, and Connection
+
+Select your prefered AI provider and model. Then if you have an existing connection for the selected AI provider, you can select the connection.
+
+<Callout>
+  By selecting a connection you will use your own credentials instead of
+  Lecca.io's platform credits.
+</Callout>
+
+### Max Steps
+
+To prevent your agent from making using too many tools, you can set a limit. Set to 0 to disable this and only allow your agent to make a single call at a time.
+
+### Temperature
+
+Controls randomness: Lowering results in less random completions. As the temperature approaches zero, the model will become deterministic and repetitive.
+
+### Frequency Penalty
+
+How much to penalize new tokens based on their existing frequency in the text so far. Decreases the model's likelihood to repeat the same line verbatim.
+
+### Presense Penalty
+
+How much to penalize new tokens based on whether they appear in the text so far. Increases the model's likelihood to talk about new topics.
+
+### Maximum Retries
+
+Maximum number of retries when the AI model fails for an unknown reason. Set to 0 to disable retries.

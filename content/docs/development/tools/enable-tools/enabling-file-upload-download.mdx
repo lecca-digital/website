@@ -1,0 +1,36 @@
+---
+title: File Upload/Download
+---
+
+Lecca.io provides a way to easily upload files to agent conversations and download files via different actions (Google Drive, Dropbox, .etc). To handle the upload and download, we use S3.
+
+<Callout>
+  To get a deep dive into all available environment variables refer to
+  [`server.config.ts`](https://github.com/lecca-digital/lecca-io/blob/main/apps/server/src/config/server.config.ts).
+</Callout>
+
+<Steps>
+<Step>
+
+    ### S3 Secrets
+
+    1. Create an AWS S3 bucket
+    2. Generate an `S3_ACCESS_KEY_ID`
+    3. Generate an `S3_SECRET_ACCESS_KEY`
+    4. Generate a `S3_REGION` secret;
+
+</Step>
+
+<Step>
+
+    ### Add all these secrets to the environment variables
+
+    Once added as environment variable, the `ServerConfig` will use it and file feature will be enabled.
+
+</Step>
+
+</Steps>
+
+<Callout>
+  S3 secrest are also used for knowledge notebooks and workspace/profile images.
+</Callout>

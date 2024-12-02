@@ -1,0 +1,53 @@
+---
+title: Commits
+---
+
+Every commit must meet the [Conventional Commit Format](https://www.conventionalcommits.org/en/v1.0.0/)
+
+We have a strict format for PR titles and commits that make it easier to review and automate change logs.
+
+Commit title structure: `<type>(<scope>): <subject>`
+
+- ### Type
+
+  Must be one of the following:
+
+  | type       | description                                                                                                                                      |
+  | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+  | `feat`     | A new feature. This includes new integrations, actions, triggers.                                                                                |
+  | `fix`      | A bug fix.                                                                                                                                       |
+  | `perf`     | Changes to improve performace.                                                                                                                   |
+  | `ci`       | Changes to CI files (.github directory).                                                                                                         |
+  | `test`     | Adding or modifying test files.                                                                                                                  |
+  | `docs`     | Documentation changes.                                                                                                                           |
+  | `refactor` | Restructuring or reorganizing the code without changing its external behavior                                                                    |
+  | `build`    | Changes that affect the build system, dependencies, or external tooling that supports the building of the project                                |
+  | `chore`    | Changes that are routine maintenance tasks, housekeeping, or updates that don’t modify application functionality, features, or visible behavior. |
+
+- ### Scope (optional)
+
+  Only required if the commit involves one of these apps.
+
+  - `ui` - Changes to the ui app - [apps/ui](apps/ui)
+  - `server` - Changes to the server app - [apps/server](apps/server)
+  - `* app` - Changes or additions of any app (integration), action, or trigger. E.g. `gmail app` or `google-sheets app`. Format in lowercase referncing the app id.
+
+- ### Subject
+
+  Brief description of the changes
+
+  - Capitalized imperative verb for the subject line
+  - No punctuation at the end.
+
+<Callout>
+  Good example: `Fix performance issue in task service` or `Add new send message
+  action in Foo app`
+</Callout>
+
+<Callout type="error">
+  Bad example: `fixed performance issue in task service.`
+</Callout>
+
+- ### Body (optional)
+
+  Follow the same rules as the subject by using a capitalized imperative verb to expalain why you made this change. What was the reason. This will help reviewers understand the context and reason for your change.

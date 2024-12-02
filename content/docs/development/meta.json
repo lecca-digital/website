@@ -1,0 +1,17 @@
+{
+  "title": "Development",
+  "description": "Building Tools",
+  "icon": "Code",
+  "pages": [
+    "index",
+    "---Setup---",
+    "...setup",
+    "---Tools---",
+    "...tools",
+    "---AI Providers---",
+    "...ai-providers",
+    "---Contributing---",
+    "...contributing"
+  ],
+  "root": true
+}

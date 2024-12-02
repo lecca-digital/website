@@ -1,0 +1,67 @@
+---
+title: Workflows
+---
+
+Lecca.io's Workflows allow you to automate a series of actions. Workflows can split paths, conditionally execute steps, schedule tasks, wait for human intervention, and much more.
+
+## Triggers
+
+<Callout>All workflows must have a trigger</Callout>
+
+A trigger can be one of the following:
+
+1. Manually Run
+
+   - Allows a user to manually run the workflow by clicking the play button next to the trigger.
+   - Allows an AI Agent to run the workflow and use it as a tool. If you add an `Ouput Workflow Data` action to the workflow, the agent will also wait for the response. The agent must have the `Run Workflow` tool enabled.
+   - Allows another workflow to run the workflow. And just like the Agent, if you add the `Ouput Workflow Data` action, the workflow will wait for the response.
+
+     <Callout type="warn">
+       The an agent or workflow are waiting for a response, the response will
+       time out after 60 seconds.
+     </Callout>
+
+2. Recurring Schedule
+
+   - Build a CRON schedule for your workflow to follow. This schedule can trigger workflow executions on intervals a low as 1 minute.
+
+3. Listen for webhook
+
+   - Make an HTTP request to your webhook endpoint to trigger the workflow.
+
+4. App Trigger
+
+   - Configure a trigger from one of the available apps.
+
+   <Callout>
+     There are app polling triggers and app webhook triggers. Polling triggers
+     check for new events every 15 minutes to an hour (depending on the plan
+     you're on). And Webhook triggers are instant.
+   </Callout>
+
+## Actions
+
+Actions are either integrations with third party apps or are provided directly by Lecca.io to execute some sort of function.
+
+<Callout>Actions are the same tools you can give to an AI agent.</Callout>
+
+Some examples of actions using integrations with third party apps are the following:
+
+1. Sending & Drafting Emails
+2. Managing Calendars events
+3. Messaging and Replying with Slack
+
+Some example of actions provided by Lecca.io are the following:
+
+1. AI Actions
+2. Human in the loop (Flow Control)
+3. Saving and Searching Knowledge
+4. Search the web
+5. Date Helpers
+6. CSV Helpers
+7. JSON Helpers
+8. Text Helpers
+
+## Enable Workflow
+
+Your workflows will not run unless you have enabled them.

@@ -1,0 +1,189 @@
+---
+title: Adding Provider
+---
+
+Lecca.io uses [Vercel's AI SDK](https://sdk.vercel.ai/providers/ai-sdk-providers) to manage providers.
+
+Using the SDK allows us to use the same interface for different providers and even add custom providers / models that fit openai's format.
+
+## Steps to add a provider
+
+<Steps>
+
+    <Step>
+        ### Update `AiProvider` Type
+
+        Locate the `ai-provider.service.ts` file.
+
+        <Files>
+            <Folder name="apps" defaultOpen>
+                <Folder name="ui" />
+                    <Folder name="server" defaultOpen>
+                    <Folder name="src" defaultOpen>
+                    <Folder name="modules" defaultOpen>
+                        <Folder name="global" defaultOpen>
+                            <Folder name="ai-provider" defaultOpen>
+                                <File name="ai-provider.service.ts" />
+                            </Folder>
+                        </Folder>
+                    </Folder>
+                </Folder>
+                </Folder>
+            </Folder>
+        </Files>
+
+        At the bottom of the file, add your new provider to the `AiProvider` type.
+
+        ```ts
+        export type AiProvider =
+        | 'new-provider' // [!code highlight]
+        | 'openai'
+        | 'ollama'
+        | 'anthropic'
+        | 'gemini';
+        ```
+
+    </Step>
+
+    <Step>
+        ### Add Provider Defaults
+
+        Locate the `ai-provider-defaults.ts` file.
+
+        <Files>
+            <Folder name="apps" defaultOpen>
+                <Folder name="ui" />
+                <Folder name="server" defaultOpen>
+                <Folder name="src" defaultOpen>
+                    <Folder name="modules" defaultOpen>
+                        <Folder name="global" defaultOpen>
+                            <Folder name="ai-provider" defaultOpen>
+                                <File name="ai-provider-defaults.ts" />
+                            </Folder>
+                        </Folder>
+                    </Folder>
+                </Folder>
+                </Folder>
+            </Folder>
+        </Files>
+
+        Add a new entry to the `DEFAULT_PROVIDERS` for the new provider.
+
+        <Callout>Follow the `AiProviders` type and examples of other providers to easily fill out the defaults for the new provider</Callout>
+
+        ```ts
+        export const DEFAULT_PROVIDERS: AiProviders = {
+            'new-provider': {
+                //The App and Connection will need to be created before or after this step
+                //It will allow users to use their own api key when using this provider.
+                appConnectionId: 'new-provider_connection_api-key',
+                languageModels: {
+                    //Follow examples and types to fill this out
+                },
+                embeddingModels: {
+                    //Follow examples and types to fill this out
+                },
+            },
+            openai: {
+                ...
+            },
+            ...
+        }
+        ```
+
+        <Callout>
+            The `appConnectionId` should match the connection id for the provider app. If the app has not been created or isn't created, then user's won't be able to provide their own api key to use this provider.
+
+            Go [here](/docs/development/tools/apps/create-app) to learn how to create an app.
+        </Callout>
+
+    </Step>
+
+    <Step>
+        ### Add Required Environment Variables
+
+        Lecca.io allows users to use AI actions and AI Agents without creating connections to the AI providers. This uses credits on the cloud hosted version. Your instance of Lecca.io will probably not use credits, but still allow users to use the platform credentials instead of requiring them to provide their own via a connection.
+
+        Therefore, it is required that you add an Environment Variable and update the ServerConfig if this third party provider requires credentials.
+
+        1. Add a new property to `ServerConfig` in `server.config.ts` for the new environment variable
+
+        ```ts
+        //server.config.ts
+
+        ServerConfig = {
+            ...
+
+            NEW_AI_PROVIDER_API_KEY: process.env.NEW_AI_PROVIDER_API_KEY,
+
+            ...
+        }
+        ```
+
+        2. Add the environment variable so it can get mapped to the `ServerConfig` on server initialization.
+
+    </Step>
+
+    <Step>
+        ### Update AI Provider Service Constructor
+
+        In the constructor of the `ai-provider.service.ts` file, there is a switch statement to check if the AI provider can be used.
+
+        E.g. If the required API KEY is not set as in the `ServerConfig` via an environment variable, then we will just remove the provider from the available providers at run time.
+
+        ```ts
+        //ai-provider.service.ts
+
+        //Example switch case
+        case 'new-provider':
+            if (!ServerConfig.NEW_AI_PROVIDER_API_KEY) {
+                delete this.providers[provider];
+            }
+            break;
+
+        ```
+    </Step>
+
+    <Step>
+
+        ### Create Provider Instance
+
+        At this point you can add your provider to the switch statements in `getAiLlmProviderClient` and/or `getAiEmbeddingProviderClient` within the `AiProviderService`
+
+        If you are adding a popular provider, it might be already supported implemented by the community or [Vercel](https://sdk.vercel.ai/providers/ai-sdk-providers). If it's not, they make it easy to create a new provider or you can just use the `createOpenAI` function if your provider is compatible.
+
+        <Callout type="warn">
+            We currently don't use the embedding providers besides OpenAI's. We have a roadmap item to allow knowledge notebooks to select which provider and model they want to use to create embeddings.
+        </Callout>
+
+        ```ts
+        //ai-provider.service.ts
+
+        //Example of an openai compatible third party provider
+        case 'new-provider':
+            return createOpenAI({
+                compatibility: 'compatible',
+                apiKey,
+            })(llmModel, {
+                user: workspaceId,
+            });
+            break;
+        ```
+
+    </Step>
+
+    <Step>
+
+        ### Create App for new Provider
+
+       <Callout>
+            The `appConnectionId` should match the connection id for the provider app. If the app has not been created or isn't created, then user's won't be able to provide their own api key to use this provider.
+        </Callout>
+
+
+        Go [here](/docs/development/tools/apps/create-app) to learn how to create an app.
+        Copy the implementation of the openai app, gemini app, anthropic app, or any other existing ai app.
+
+    </Step>
+
+</Steps>

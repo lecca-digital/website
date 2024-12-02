@@ -1,0 +1,88 @@
+---
+title: Knowledge
+---
+
+Lecca.io Knowledge Notebooks enable you to store and reuse custom data for easy retrievel.
+
+## Saving Knowledge
+
+Each notebook has it's own knowledge. So make sure you are saving knowledge to the correct notebook.
+
+1. Upload text files
+
+   - .pdf
+   - .doc
+   - .docx
+   - .txt
+
+   <Callout type="warn">
+     We currently do not read any data from images in PDFs
+   </Callout>
+
+2. Upload raw text
+
+   Just copy and paste the data you want to save to the notebook.
+
+## Searching knowledge
+
+There is one way to query knowledge at the moment. That is using the `Search Knowledge` action. So if you want to let your AI Agent search knowledge, give it the `Search Knowledge` action and select the notebook you want it to have access to.
+
+<div
+  style={{
+    position: "relative",
+    paddingBottom: "56.25%",
+    height: 0,
+    overflow: "hidden",
+    marginTop: "20px",
+  }}
+>
+  <iframe
+    width="560"
+    height="315"
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+    }}
+    src="https://www.youtube.com/embed/2V7A3IpyJbo?si=4RUriV0AB5bevQy1"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerPolicy="strict-origin-when-cross-origin"
+    allowFullScreen
+  ></iframe>
+</div>
+
+## How does it work?
+
+1. Under the hood, we use Pinecone and Vector Embeddings to store your knowledge.
+
+2. When uploading a pdf, doc, or text, we chunk the data and use an embedding model to convert the text into vector embeddings.
+
+3. Before we save the embeddings to pinecone, we upload the text to an S3 bucket to generate a link for retrieval.
+
+4. Once we have the vector embeddings and the S3 link we upload it to pinecone and add some metadata to that db entry. We do this for every chunk.
+
+5. Now when retrieving the data, we convert the text query into a vector embedding, then query the pinecone database with that embedding. Once we have the results, we query our S3 bucket using the links from the pinecone result metadata and return the text contents of those links.
+
+<Callout>
+  Roadmap Item: Letting users selecting the AI provider and embedding model that
+  each notebook would use.
+</Callout>
+<Callout>
+  Roadmap Item: Letting users select the chunking strategy they want to use.
+</Callout>
+<Callout>Roadmap Item: Support uploading images and pdf's with images</Callout>
+
+## Sharing Knowledge
+
+If you want to create knowledge that anyone in your workspace can use for their agents and workflows, do not assign the knowledge notebook to a project when creating it.
+
+However, if you want to restrict access to your notebook, assign it to a project upon creation. Then only users with access to that project can use the notebook.
+
+<Callout type="warn">
+  The assigned project cannot be removed, added, or modified after notebook
+  creation
+</Callout>

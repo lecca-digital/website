@@ -1,0 +1,65 @@
+---
+title: Knowledge
+---
+
+Lecca.io provides a way to easily upload files or text, chunk, embed, and save the files to S3 for retrieval. RAG.
+
+<Callout>
+  To get a deep dive into all available environment variables refer to
+  [`server.config.ts`](https://github.com/lecca-digital/lecca-io/blob/main/apps/server/src/config/server.config.ts).
+</Callout>
+
+<Callout>
+  Roadmap Item: Letting users selecting the AI provider and embedding model that
+  each notebook would use.
+</Callout>
+
+<Callout>
+  Roadmap Item: Letting users select the chunking strategy they want to use.
+</Callout>
+<Callout>Roadmap Item: Support uploading images and pdf's with images</Callout>
+
+<Callout>
+  Roadmap Item: Allowings users to select between Using pg vector and Pinecone.
+</Callout>
+
+<Callout>
+  Roadmap Item: Support multiple dimension sizes besides just 1536
+</Callout>
+
+We currently use S3, OpenAI's embedding model, and Pinecone to operate knowledge notebooks.
+
+<Steps>
+<Step>
+
+    ### S3 Secrets
+
+    1. Create an AWS S3 bucket
+    2. Generate an `S3_ACCESS_KEY_ID`
+    3. Generate an `S3_SECRET_ACCESS_KEY`
+    4. Generate a `S3_REGION` secret;
+
+</Step>
+
+<Step>
+
+    ### Create Pinecone Database
+
+    1. Go to [Pinecone](https://www.pinecone.io/)
+    1. Create an index with a dimension of 1536
+    3. Generate a `PINECONE_API_KEY`
+    4. Generate a `PINECONE_INDEX_NAME` secret.
+
+    <Callout>Al embedding models must either have a dimension of 1536 or be able to convert to 1536. Making this flexible is on the roadmap.</Callout>
+
+</Step>
+
+<Step>
+
+    ### Add all these secrets to the environment variables
+
+    Once added as environment variable, the `ServerConfig` will use it and the knowledge feature will be enabled.
+
+</Step>
+
+</Steps>

@@ -1,0 +1,133 @@
+---
+title: Create OAuth2 Connection
+---
+
+<Callout>We are working on a CLI to make this easier</Callout>
+
+<Steps>
+
+<Step>
+### Create connections folder
+
+Locate the app your want to add a connection for in the apps directory `/apps/server/apps/public/your-new-app`. Add a new folder if it doesnt exist already. Title it `connections`.
+
+<Files>
+  <Folder name="apps" defaultOpen>
+    <Folder name="ui" />
+    <Folder name="server" defaultOpen>
+      <Folder name="src" defaultOpen>
+        <Folder name="apps" defaultOpen>
+          <Folder name="public" defaultOpen>
+            <Folder name="your-new-app" defaultOpen>
+              <Folder name="connections" defaultOpen />
+              <File name="your-new-app.app.ts" />
+            </Folder>
+          </Folder>
+        </Folder>
+      </Folder>
+    </Folder>
+  </Folder>
+</Files>
+
+</Step>
+
+<Step>
+### Create connection file
+
+Create a new file within your app's connection folder. For an oauth2 connection, call it `your-new-app.oauth2.ts`, replacing `your-new-app` with your app id (which should match your app file).
+
+Add your own values. We provided mock data to help initialize the process.
+
+```ts
+import { OAuth2Connection } from "@/apps/lib/connection";
+import { InputConfig } from "@/apps/lib/input-config";
+import { ServerConfig } from "@/config/server.config";
+
+import { YourNewApp } from "../your-new-app.app";
+
+export class YourNewAppOAuth2 extends OAuth2Connection {
+  app: YourNewApp;
+  id = "your-new-app_connection_oauth2";
+  name = "OAuth2";
+  description = "Connect using OAuth2";
+  inputConfig: InputConfig[] = [];
+  authorizeUrl = "";
+  tokenUrl = "";
+  clientId = ServerConfig.INTEGRATIONS.YOUR_NEW_APP_CLIENT_ID;
+  clientSecret = ServerConfig.INTEGRATIONS.YOUR_NEW_APP_CLIENT_SECRET;
+  scopes = [];
+}
+```
+
+1. Name the class: Make sure the class starts with your app class name and ends with `<AppName>OAuth2`
+2. Add the type to the app property, E.g. `app: YourNewApp`.
+
+   <Callout>
+     Not necessary unless you're going to use the methods defined on the App
+     class within your connection class.
+   </Callout>
+
+3. Add an id: `your-new-app_connection_oauth2`
+
+   - Make sure the id follows the format `<app-id>_connection_oauth2`
+
+4. Add the authorize url.
+
+   This is a url that will be sent to the client to redirect the user to start the auth flow. For example, `https://accounts.google.com/o/oauth2/v2/auth`
+
+5. Add the tokenUrl.
+
+   This is used by the server to retrieve access tokens, refresh tokens, and to refresh the tokens. For example, `https://oauth2.googleapis.com/token`
+
+6. Add the client id and client secret.
+
+   You will need to create an account on the third party platform and follow their instructions to generate these values.
+
+   Once you have the values, you will need to add them as environment variables and then add the environment variable names to the `ServerConfig.INTEGRATIONS` object found in `server.config.ts`
+
+   <Callout>
+     The environment variable must start with `INTEGRATION`. For example,
+     `INTEGRATION_GMAIL_CLIENT_ID`. The value must be added to to `INTEGRATION`
+     property in the ServerConfig object. If you view the `server.config.ts`
+     file, you will find all the other integration properties understand how to
+     format it.
+   </Callout>
+
+7. Add the required scopes to perform the api calls needed for actions and triggers.
+
+{" "}
+
+<Callout type="warn">
+  If you ever need to update these scopes, all connections created with the old
+  scopes will still work, but not have the new scopes. We currently don't have a
+  way to refresh old connections with new scopes. So try to make sure you have
+  all scopes you need and think will be needed in the near future.
+
+For example, don't just get the `read` scope, get the `write` scope as well. Because even if you only plan on adding a read action, it is very likely someone will want to add the write action in the future.
+
+This being said, don't add all the scopes. This is usually a good discussion you can start so that multiple people can determine what scopes are most likely to be needed for the app.
+
+You can always create multiple oauth2 connections with different levels of access. Though we don't really have a good UX for that and could lead to confusing.
+
+</Callout>
+
+</Step>
+
+<Step>
+### Add new connection to the app's connections property
+
+```ts
+export class YourNewApp extends App {
+  ...
+
+  connections(): Connection[] {
+    return [new YourNewAppOauth2({ app: this })]; // [!code highlight]
+  }
+
+  ...
+}
+```
+
+</Step>
+
+</Steps>

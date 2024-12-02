@@ -1,0 +1,152 @@
+---
+title: Create Action
+---
+
+<Callout>We are working on a CLI to make this easier</Callout>
+
+<Steps>
+
+<Step>
+### Create actions folder
+
+Locate the app your want to add an action for in the apps directory `/apps/server/apps/public/your-new-app`. Add a new folder if it doesnt exist already. Title it `actions`.
+
+<Files>
+  <Folder name="apps" defaultOpen>
+    <Folder name="ui" />
+    <Folder name="server" defaultOpen>
+      <Folder name="src" defaultOpen>
+        <Folder name="apps" defaultOpen>
+          <Folder name="public" defaultOpen>
+            <Folder name="your-new-app" defaultOpen>
+              <Folder name="actions" defaultOpen />
+              <File name="your-new-app.app.ts" />
+            </Folder>
+          </Folder>
+        </Folder>
+      </Folder>
+    </Folder>
+  </Folder>
+</Files>
+
+</Step>
+
+<Step>
+### Create action file
+
+Create a new file within your app's action folder. Call it something like `new-action.app.ts`. Make sure it ends with `.action.ts`. Make sure the name is descriptive of the action yet succinct.
+
+Add your own values. We provided mock data to help initialize the process.
+
+```ts
+import { z } from "zod";
+
+import {
+  Action,
+  ActionConstructorArgs,
+  RunActionArgs,
+} from "@/apps/lib/action";
+import { InputConfig } from "@/apps/lib/input-config";
+import { NodeViewOptions } from "@/apps/lib/trigger";
+import { ServerConfig } from "@/config/server.config";
+
+export class NewAction extends Action {
+  app: YourNewApp;
+  id = "your-new-app_action_new-action";
+  name = "";
+  description = "Find text using a query.";
+  aiSchema = z.object({
+    //Use zod to create a schema
+  });
+  inputConfig: InputConfig[] = [
+    //Add a configuration to display the form
+  ];
+
+  async run({
+    configValue,
+    connection,
+  }: RunActionArgs<ConfigValue>): Promise<Response> {
+    //Define the run function and return the output you want returned from the tool.
+    //configValue is the values that were passed via the form or the ai schema.
+  }
+
+  async mockRun({
+    configValue,
+  }: RunActionArgs<ConfigValue>): Promise<Response> {
+    //Return a value that represents the shape of the object that would be
+    //returned when someone runs this action.
+    //This is used when someone doesn't want to run this action with real data
+    //but need data to map the data to other steps in a workflow.
+  }
+}
+
+type ConfigValue = z.infer<Search["aiSchema"]>;
+
+type Response = {
+  //Define your response type
+};
+```
+
+1. Name the class: export class `YourNewApp`
+2. Add an id: `your-new-app_action_new-action`
+
+   - Make sure the id follows the format `<app-id>_action_<action-id>`
+
+3. Add a name: `New Action`
+4. Add a description: `Does something cool`
+5. Add an AI Schema
+
+   This is a [zod schema](https://zod.dev/) used for AI to "fill out" the form to configure this action.
+
+   <Callout>
+
+   Read more about the [AI Schema](/docs/development/ai-schema).
+
+   </Callout>
+
+6. Add an Input Config
+
+   This is used to generate the form for the UI to configure this action.
+
+   <Callout>
+     Read more about the [Input Config](/docs/development/input-config)
+   </Callout>
+
+7. Define the `run` function.
+
+   This is the function that runs during workflow steps or when an AI agent uses this action as a tool. Whatever is returned from this function can be used in subsequent steps in the workflow or by an AI agent.
+
+   The common arguments used by this function are `configValue` and `connection`.
+
+   1. `configValue` represents the Input Config or AI Schema that was used when the user or AI agent configuring this action.
+   2. `connection` is the decrypted connection properties of the connection selected by the user when configuring this action.
+
+8. Define the `mock` function.
+
+   The `mock` function is used by users when they want to generate a mock output instead of making an real api call to their third party integration.
+
+   <Callout>
+     Ouput data is used to map to other nodes in the workflow builder. This is
+     done by clicking `Save & Test` in the configuration form.
+   </Callout>
+
+</Step>
+
+<Step>
+### Add new action to the app's actions property
+
+```ts
+export class YourNewApp extends App {
+  ...
+
+  actions(): Action[] {
+    return [new NewAction({ app: this })]; // [!code highlight]
+  }
+
+  ...
+}
+```
+
+</Step>
+
+</Steps>

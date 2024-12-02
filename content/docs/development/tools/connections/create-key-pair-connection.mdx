@@ -1,0 +1,79 @@
+---
+title: Create Key Pair Connection
+---
+
+<Callout>We are working on a CLI to make this easier</Callout>
+
+<Steps>
+
+<Step>
+### Create connections folder
+
+Locate the app your want to add a connection for in the apps directory `/apps/server/apps/public/your-new-app`. Add a new folder if it doesnt exist already. Title it `connections`.
+
+<Files>
+  <Folder name="apps" defaultOpen>
+    <Folder name="ui" />
+    <Folder name="server" defaultOpen>
+      <Folder name="src" defaultOpen>
+        <Folder name="apps" defaultOpen>
+          <Folder name="public" defaultOpen>
+            <Folder name="your-new-app" defaultOpen>
+              <Folder name="connections" defaultOpen />
+              <File name="your-new-app.app.ts" />
+            </Folder>
+          </Folder>
+        </Folder>
+      </Folder>
+    </Folder>
+  </Folder>
+</Files>
+
+</Step>
+
+<Step>
+### Create connection file
+
+Create a new file within your app's connection folder. For a key pair connection, call it `your-new-app.key-pair.ts`, replacing `your-new-app` with your app id (which should match your app file).
+
+Add your own values. We provided mock data to help initialize the process.
+
+```ts
+import { KeyPairConnection } from "@/apps/lib/connection";
+import { InputConfig } from "@/apps/lib/input-config";
+
+export class YourNewAppKeyPair extends KeyPairConnection {
+  id = "your-new-app_connection_key-pair";
+  name = "Key Pair";
+  description = "Connect using an a public/private key pair";
+  inputConfig: InputConfig[] = [];
+}
+```
+
+1. Name the class: Make sure the class starts with your app class name and ends with `<AppName>KeyPair`
+2. Add an id: `your-new-app_connection_key-pair`
+
+   - Make sure the id follows the format `<app-id>_connection_key-pair`
+
+You don't need to modify the name, description, or input config
+
+</Step>
+
+<Step>
+### Add new connection to the app's connections property
+
+```ts
+export class YourNewApp extends App {
+  ...
+
+  connections(): Connection[] {
+    return [new YourNewAppKeyPair({ app: this })]; // [!code highlight]
+  }
+
+  ...
+}
+```
+
+</Step>
+
+</Steps>

@@ -1,13 +1,40 @@
 ---
-title: Hello World
-description: Your first document
+title: Welcome to Lecca.io
+description: Lecca.io is a no-code AI agent & workflow automation platform.
 ---
 
-Welcome to the docs! You can start writing documents in `/content/docs`.
+import {
+  HomeIcon,
+  CodeIcon,
+  WandSparklesIcon,
+  ComponentIcon,
+} from "lucide-react";
 
-## What is Next?
+This is the documentation for Lecca.io. It covers how to use the platform's features, how to get it running locally, and how to build on and contribute to the software.
+
+Lecca.io uses a [fair-code](https://faircode.io/) license structure to allow users to host the platform on their own machines. If you wish to purchase a commercial license please contact license@lecca.io.
+
+## Where to start?
 
 <Cards>
-  <Card title="Learn more about Next.js" href="https://nextjs.org/docs" />
-  <Card title="Learn more about Fumadocs" href="https://fumadocs.vercel.app" />
+  <Card
+    icon={<HomeIcon />}
+    title="Learn Concepts"
+    href="/docs/overview/components/projects"
+  >
+    Learn how to automate with Lecca.io
+  </Card>
+  <Card icon={<CodeIcon />} title="For Developers" href="/docs/development">
+    Build apps & contribute
+  </Card>
+  <Card icon={<ComponentIcon />} title="Explore Tools" href="/tools">
+    View available actions & triggers
+  </Card>
+  <Card
+    icon={<WandSparklesIcon />}
+    title="Explore AI Providers"
+    href="/ai-providers"
+  >
+    Ollama, Anthropic, OpenAI, Gemini, and more
+  </Card>
 </Cards>

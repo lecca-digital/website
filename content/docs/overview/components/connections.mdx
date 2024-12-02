@@ -1,0 +1,87 @@
+---
+title: Connections
+---
+
+Lecca.io's Connections feature allows you to integrate with your favorite third-party applications.
+
+## Types of Connections
+
+Every third party integration uses one or more connection types. Our platform supports the following types of connections:
+
+1. OAuth2
+
+   - This is the type of connection that opens up a new window or popup and asks you to sign in.
+   - It usually tells you that a platform is trying to connect with your account and displays the scopes that will be shared.
+   - Once you sign in and confirm the popup, Lecca.io will now have access to perform api calls to that app using the scopes that were given.
+
+   <Callout>
+     Scopes is another word for permissions. Lecca.io only asks for scopes
+     required to perform the actions we support. We encrypt any access and
+     refresh tokens for your security.
+   </Callout>
+
+2. Api Key
+
+   - This requires you to find the API Key on the platform you're trying to integrate with. Usually there is an admin page, developer page, or some other dashboard where you can generate an API Key.
+
+   <Callout>
+     We encrypt your API Key in our database and only decrypt it when procesing
+     a request on your behalf.
+   </Callout>
+
+3. Basic Auth
+
+   - This requires you to enter your username and password so that our server can authenticate and perform actions on your behalf.
+
+   <Callout>
+     We encrypt your username and password in our database and only decrypt it
+     when procesing a request on your behalf.
+   </Callout>
+
+4. Key Pair
+
+   - This requires you to enter a key pair value. This is usually some sort of public/private key pair.
+
+   <Callout>
+     We encrypt your keys in our database and only decrypt it when procesing a
+     request on your behalf.
+   </Callout>
+
+<div
+  style={{
+    position: "relative",
+    paddingBottom: "56.25%",
+    height: 0,
+    overflow: "hidden",
+    marginTop: "20px",
+  }}
+>
+  <iframe
+    width="560"
+    height="315"
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+    }}
+    src="https://www.youtube.com/embed/b83bJYakaR8?si=5d5fl0sok1imQFC_"
+    title="YouTube video player"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerPolicy="strict-origin-when-cross-origin"
+    allowFullScreen
+  ></iframe>
+</div>
+
+## Sharing Connections
+
+If you want to create a connection that anyone in your workspace can use for their agents and workflows, do not assign the connection to a project when creating it.
+
+However, if you want to restrict access to your connection, assign it to a project upon creation. Then only users with access to that project can use the connection.
+
+<Callout type="warn">
+  The assigned project cannot be removed, added, or modified after connection
+  creation
+</Callout>

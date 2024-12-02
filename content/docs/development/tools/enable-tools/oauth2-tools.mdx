@@ -1,0 +1,44 @@
+---
+title: OAuth2 Tools
+---
+
+<Callout>
+  To get a deep dive into all available environment variables refer to
+  [`server.config.ts`](https://github.com/lecca-digital/lecca-io/blob/main/apps/server/src/config/server.config.ts).
+</Callout>
+
+## Enabling Tools that require OAuth2 Connections
+
+App's that require this type of connection will need 2 environment variables to be setup for each app.
+
+1. Client ID
+2. Client Secret
+
+If you look at the `ServerConfig.INTEGRATIONS` property in the `server.config.ts` file you will see all the configurations for these client keys. You can also find the required keys by going to the app's oauth2 connection class and looking at the `clientId` and `clientSecret` properties.
+
+For example, if the `clientId` and `clientSecret` values were not set, then this gmail app would not be visible in the UI.
+
+```ts title="gmail.oauth2.ts"
+export class GmailOAuth2 extends OAuth2Connection {
+  app: Gmail;
+  id = "gmail_connection_oauth2";
+  name = "OAuth2";
+  description = "Connect using OAuth2";
+  inputConfig: InputConfig[] = [];
+  authorizeUrl = "https://accounts.google.com/o/oauth2/v2/auth";
+  tokenUrl = "https://oauth2.googleapis.com/token";
+  clientId = ServerConfig.INTEGRATIONS.GMAIL_CLIENT_ID; // [!code highlight]
+  clientSecret = ServerConfig.INTEGRATIONS.GMAIL_CLIENT_SECRET; // [!code highlight]
+  scopes = [
+    "https://www.googleapis.com/auth/gmail.readonly",
+    "https://www.googleapis.com/auth/gmail.modify",
+    "https://www.googleapis.com/auth/gmail.compose",
+    "https://www.googleapis.com/auth/gmail.send",
+  ];
+  scopeDelimiter = " ";
+  extraAuthParams = {
+    access_type: "offline",
+    prompt: "consent",
+  };
+}
+```

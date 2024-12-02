@@ -1,0 +1,16 @@
+---
+title: Database
+---
+
+Before starting the server, you'll need a running database. This can be done using Docker:
+
+1. Install Docker for your OS if you don't have it.
+2. Run the following command (customize values as needed):
+   `docker run --name docker-container-name -d
+-e POSTGRES_DB=mydb
+-e POSTGRES_PASSWORD=password123
+-e POSTGRES_USER=postgres
+-p "5432:5432" postgres
+`
+3. Run the following command to migrate your database to match the prisma schema.
+   `pnpm prisma migrate dev`

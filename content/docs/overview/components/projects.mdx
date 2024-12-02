@@ -1,0 +1,65 @@
+---
+title: Projects
+---
+
+import {
+  WorkflowIcon,
+  BracesIcon,
+  LinkIcon,
+  BotIcon,
+  BookOpenTextIcon,
+} from "lucide-react";
+
+Lecca.io's Projects feature serves as an organizational tool designed to organize and manage access to your components efficiently.
+
+## Project Components
+
+These components can be created within a project. If created within a project, only users with access to that project may view them or use them.
+
+<Callout type="warn">
+  Once a component is created, the assigned project can not be changed, added,
+  or removed.
+</Callout>
+
+<Cards>
+  <Card
+    icon={<BotIcon />}
+    title="Agents"
+    href="/docs/overview/components/agents"
+  >
+    LLMs with tools and triggers
+  </Card>
+  <Card
+    icon={<WorkflowIcon />}
+    title="Workflows"
+    href="/docs/overview/components/workflows"
+  >
+    Automation with a trigger and actions
+  </Card>
+  <Card
+    icon={<LinkIcon />}
+    title="Connections"
+    href="/docs/overview/components/connections"
+  >
+    Integrations to third party apps
+  </Card>
+  <Card
+    icon={<BookOpenTextIcon />}
+    title="Knowledge"
+    href="/docs/overview/components/knowledge"
+  >
+    Vector embeddings for knowledge retrieval
+  </Card>
+  <Card
+    icon={<BracesIcon />}
+    title="Variables"
+    href="/docs/overview/components/variables"
+  >
+    Resuable values for efficiency
+  </Card>
+</Cards>
+
+<Callout title="Workflows & Agents">
+  Workflows and agents must be created within a project. The other components
+  can be created without a project, giving the whole workspace access to them.
+</Callout>

@@ -1,0 +1,46 @@
+---
+title: Phone Calling
+---
+
+<Callout>
+  To get a deep dive into all available environment variables refer to
+  [`server.config.ts`](https://github.com/lecca-digital/lecca-io/blob/main/apps/server/src/config/server.config.ts).
+</Callout>
+
+Lecca.io provides a way to easily make phone calls via workflow or agent.
+
+This action uses vapi to make the phone call. A few things need to be done for this feature to be enabled.
+
+<Steps>
+<Step>
+
+    ### VAPI_API_KEY
+
+    1. Go to [Vapi](https://dashboard.vapi.ai)
+    2. Create an account
+    3. Generate an Api Key
+
+</Step>
+
+<Step>
+
+    ### Import Twilio Number
+
+    1. Go to [Twilio](https://twilio.com)
+    1. Create an account
+    2. Generate a phone number
+    3. Import this phone number into Vapi.
+
+    <Callout>If you don't import a number, you will be rate limited by Vapi and it's very annoying.</Callout>
+
+</Step>
+
+<Step>
+
+    ### Add all VAPI_API_KEY to environment varibles
+
+    Once added as environment variable, the `ServerConfig` will use it and the phone calling action will be available.
+
+</Step>
+
+</Steps>

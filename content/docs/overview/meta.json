@@ -1,0 +1,17 @@
+{
+  "title": "Platform Overview",
+  "description": "Introduction to Lecca.io",
+  "icon": "House",
+  "pages": [
+    "index",
+    "---Components---",
+    "...components",
+    "---Credits---",
+    "...credits",
+    "---Team---",
+    "...team",
+    "---Logging---",
+    "...logging"
+  ],
+  "root": true
+}

@@ -1,0 +1,36 @@
+---
+title: Running Ollama
+---
+
+Ollama is already configured to work locally. You just have to make sure the server can find it.
+
+<Callout type="warn">
+  This has only been tested on Mac and Windows. If you find any errors with
+  other operating systems, please create an issue.
+</Callout>
+
+<Steps>
+
+<Step>
+### Download and install Ollama
+
+Go to the [download](https://ollama.com/download) url and follow Ollama's instructions to get it running on your machine.
+
+</Step>
+
+<Step>
+### Ollama Base Url
+
+By default, the `ServerConfig` has `OLLAMA_BASE_URL` set to `http://127.0.0.1:11434/api`. If this is not the correct base url, set a `OLLAMA_BASE_URL` environment variable to override it.
+
+</Step>
+
+<Step>
+
+### Restart your server
+
+When the server initializes it looks for Ollama running on the ollama base url. If it finds it, it adds it to the available AI providers.
+
+</Step>
+
+</Steps>

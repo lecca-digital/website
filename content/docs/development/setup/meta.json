@@ -1,0 +1,10 @@
+{
+  "pages": [
+    "dependencies",
+    "environment-variables",
+    "database",
+    "starting-the-server",
+    "starting-the-ui",
+    "..."
+  ]
+}

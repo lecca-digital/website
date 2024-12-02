@@ -1,0 +1,75 @@
+---
+title: Credit Usage
+---
+
+The Lecca.io platform utilizes a credits system to manage various operations. Each action performed on the platform consumes a defined number of credits, varying depending on the complexity and resource usage of the task.
+
+## Subscription Plans and Credits Allocation
+
+Subscribers receive monthly credits based on their plan tier:
+
+- **Free Plan**: 250 credits
+- **Professional Plan**: 1,500 credits
+- **Team Plan**: 5,000 credits
+
+<Callout>We are working on adding a way to purchase more credits</Callout>
+
+## Credit Usage Details
+
+Below is an outline of how credits are consumed for various actions on the platform:
+
+1. ### Running a Workflow
+
+   Running a workflow, whether initiated by a trigger or an AI agent, consumes **1 credit** per run. The number of steps in the workflow does not affect the credit cost. Credits are only deducted when the workflow executes, not when polling triggers.
+
+2. ### Knowledge Management
+
+   - **Saving Knowledge**: Saving knowledge items requires converting them into vector embeddings, which entails a minor cost for storage and LLM usage. It costs **1 credit** per batch of 10 knowledge items. For example, if a file is divided into 25 chunks, **3 credits** will be charged (rounded up from 2.5).
+
+3. ### AI Steps in Workflows
+
+   Using AI steps in workflows involves selecting a provider and model. Credit charges depend on the input and output of the model:
+
+   - Set your own API key to optimize your credit usage.
+   - Costs are tailored to the model specifications.
+
+4. ### Chatting with Agents
+
+   This includes various interactions like chat UI usage and workflows interacting with agents. Like AI steps, credits are determined by model specifics. You may input your own API key to reduce costs.
+
+5. ### Google Search
+
+   Performing a Google search costs **1 credit** per search. Future updates may allow personal API key usage to lower expenses.
+
+6. ### Website Extraction
+
+   - **Static Extraction**: Costs typically **1 credit**, suitable for non-JavaScript websites.
+   - **Dynamic Extraction**: Involves rendering websites with JavaScript, costing between **1-3 credits** based on load duration.
+
+7. ### Phone Calling
+
+   Credits for phone calls depend on their duration, starting at approximately **5 credits** for short calls. Users can integrate with vapi using their API keys to manage costs.
+
+8. ### Model Token Charging
+
+   Model token charging varies by input and output token limits, with each threshold consuming 1 credit:
+
+   For example, if the model's input is 240, and output is 60, and the actual LLM call ends up being 1000 input tokens and 100 output tokens,
+   the input would be 1000/240 and output would be 100/60. We always round up so it would be 7 credits.
+
+   - **gpt-4o**: Input 240, Output 60
+   - **gpt-4o-mini**: Input 4000, Output 1000
+   - **claude-3-5-sonnet-latest**: Input 200, Output 40
+   - **claude-3-5-haiku-latest**: Input 120, Output 600
+   - **claude-3-opus-latest**: Input 8, Output 40
+   - **gemini-1.5-flash**: Input 4000, Output 1000
+   - **gemini-1.5-pro**: Input 240, Output 60
+
+## Tracking Credit Usage
+
+Our Credit Usage page helps users monitor each credit transaction, including project, workflow, agent interactions, and knowledge transactions. This feature assists in improving user awareness and management of their credit consumption.
+
+<Callout>
+  If you have any questions or concerns regarding credit usage, please contact
+  us at [support@lecca.io](mailto:support@lecca.io).
+</Callout>

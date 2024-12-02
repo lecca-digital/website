@@ -1,0 +1,27 @@
+---
+title: AI Actions
+---
+
+<Callout>
+  To get a deep dive into all available environment variables refer to
+  [`server.config.ts`](https://github.com/lecca-digital/lecca-io/blob/main/apps/server/src/config/server.config.ts).
+</Callout>
+
+## Enabling Pre-built AI Actions
+
+Lecca.io provides prebuilt AI Actions that users can use in their workflows and provide as tools for their AI Agents.
+
+In order for the UI to see these actions, there must be at least 1 AI Provider Api Key found in the Environment Varibles.
+
+Make sure at least one of these exists:
+
+1. `OPENAI_API_KEY`
+2. `GEMINI_API_KEY`
+3. `ANTHROPIC_API_KEY`
+
+Any new providers that are added should also be added to this list
+
+<Callout>
+  To learn how to add a new provider visit these
+  [docs](/docs/development/ai-providers/adding-provider)
+</Callout>
