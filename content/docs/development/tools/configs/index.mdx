@@ -1,0 +1,27 @@
+---
+title: Configs
+---
+
+Every action requires an `inputConfig` and an `aiSchema` so that the action can be configured by both a human and an AI agent.
+
+Triggers on the other hand cannot be configured by an AI agent, therefore they do not need an `aiSchema`, only an `inputConfig`.
+
+<Callout>
+  You can think of `Input Config` as the human schema, and `AI Schema` as the AI
+  agent schema. Both must overlap and are values passed to the `run` method of
+  any action or trigger.
+</Callout>
+
+## Learn More
+
+<Cards>
+  <Card
+    title="Input Config"
+    href="/docs/development/tools/configs/input-config"
+  >
+    Learn how to build a UI config form.
+  </Card>
+  <Card title="AI Schema" href="/docs/development/tools/configs/ai-schema">
+    Learn how to build an AI config form.
+  </Card>
+</Cards>

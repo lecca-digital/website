@@ -52,7 +52,7 @@ function HomeHero() {
           <h1 className="text-2xl md:text-4xl font-bold">Lecca.io</h1>
           <h2> AI Agents & Automations </h2>
         </div>
-        <div className="max-w-[1000px] mt-10 lg:mt-0 lg:px-10">
+        <div className="max-w-[1000px] mt-10 lg:mt-0 sm:px-10">
           {!isImageLoaded && (
             <div
               style={{ height: "800px", width: "1900px" }}
@@ -377,7 +377,7 @@ function HomeFeatures() {
                 <path d="M9 13v2" />
               </svg>
             }
-            learnMoreLink="/docs/overview/agents"
+            learnMoreLink="/docs/overview/components/agents"
           />
           <FeatureContent
             id="Workflows"
@@ -402,7 +402,7 @@ function HomeFeatures() {
                 <rect width="8" height="8" x="13" y="13" rx="2" />
               </svg>
             }
-            learnMoreLink="/docs/overview/workflows"
+            learnMoreLink="/docs/overview/components/workflows"
           />
           <FeatureContent
             id="Triggers"
@@ -425,7 +425,7 @@ function HomeFeatures() {
                 <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
               </svg>
             }
-            learnMoreLink="/docs/overview/workflows"
+            learnMoreLink="/docs/overview/components/workflows"
           />
           <FeatureContent
             id="Projects"
@@ -451,7 +451,7 @@ function HomeFeatures() {
                 <path d="M16 10v6" />
               </svg>
             }
-            learnMoreLink="/docs/overview/projects"
+            learnMoreLink="/docs/overview/components/projects"
           />
           <FeatureContent
             id="Connections"
@@ -475,7 +475,7 @@ function HomeFeatures() {
                 <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
               </svg>
             }
-            learnMoreLink="/docs/overview/connections"
+            learnMoreLink="/docs/overview/components/connections"
           />
           <FeatureContent
             id="Knowledge"
@@ -503,7 +503,7 @@ function HomeFeatures() {
                 <path d="M6 8h2" />
               </svg>
             }
-            learnMoreLink="/docs/overview/knowledge"
+            learnMoreLink="/docs/overview/components/knowledge"
           />
           <FeatureContent
             id="Variables"
@@ -527,7 +527,7 @@ function HomeFeatures() {
                 <path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1" />
               </svg>
             }
-            learnMoreLink="/docs/overview/variables"
+            learnMoreLink="/docs/overview/components/variables"
           />
           <FeatureContent
             id="Logging"
@@ -553,7 +553,7 @@ function HomeFeatures() {
                 <path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3" />
               </svg>
             }
-            learnMoreLink="/docs/overview/executions"
+            learnMoreLink="/docs/overview/components/executions"
           />
         </Tabs>
       </div>

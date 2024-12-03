@@ -1,0 +1,237 @@
+---
+title: Input Config
+---
+
+The Input Config is the schema that defines the form seen in the UI when configuring an action or trigger.
+
+The input config is comprised of input fields of different types. Some are text, select, numbers, json, and even nested fields.
+
+Let's go over the properties, then we'll go into depth on the input types and the properties required for certain input types.
+
+## Properties on Field Config
+
+- ### `id`
+
+  This is the id of the value that will be passed into the `configValue` argument of the `run` function of your action or trigger.
+
+  For example, if you have a text field with id `name`. The config value would look something like this:
+
+  ```ts
+
+  async run({ configValue }) {
+    const { name } = configValue
+    ...
+  }
+
+  ```
+
+- ### `description`
+
+  Adds a tooltip to the field. If you don't want a tooltip, just leave as an empty string.
+
+- ### `placeholder`
+
+  Adds a placeholder in the text box or select dropdown.
+
+- ### `occurenceType`
+
+  Default is `single`. If you change this to `multiple`, then the field will become an array and the user can add multiple entries of the field.
+
+- ### `required`
+
+  If left empty, the field is not required. If it is required, set the value to type:
+
+  ```ts
+  {
+    missingMessage: string;
+    missingStatus: "warning" | "error"; //Always use "warning"
+  }
+  ```
+
+  Always use `warning` for better UX. Or else the node will be red as soon as a user starts configuring it.
+
+- ### `loadOptions`
+
+  These are options to modify the appearance of the field.
+
+  - `dependsOn`
+
+  Can be an array of either `strings` or `{ id: string, value: string | string[] }`
+
+  If `dependsOn` is set, then this field will not be visible until all items of the `dependsOn` array are met.
+
+  Strings in the array are ids of other fields. So if you have the string `name` in the `dependsOn` array, then this field won't be visible until the `name` field has a value.
+
+  Objects in the array are ids and values of other fields. So if you have the object `{ id: 'name', value: 'Bob'}`, then this field won't be visible until the the `name` field has a value of `Bob`.
+
+  <Callout type="warn">
+    There is some behavior we hope to fix eventually where if a field has a
+    value, but then disapears due to the `dependsOn` array not being met, the
+    value still exists and is passed to the `run` method of the action or
+    trigger. Because of this, you must add run time validation to prevent this
+    misuse of config properties you don't expect to have values.
+  </Callout>
+
+  - `executionOnly`
+
+  Makes the field only visible when in the execution view, not the workflow builder.
+
+  - `workflowOnly`
+
+  Makes the field only visible when in the workflow builder, not the execution view.
+
+  - `forceRefresh`
+
+  Will cause a force re-fetch if any of the dependsOn field changes. You can still click the `refresh` button.
+
+  - `hideRefreshButton`
+
+  Hides the refresh button. Pairs well with force refresh.
+
+## Input Types
+
+- ### `text`
+
+  Field where a user can add text
+
+- ### `file`
+
+  Field where a user can add a url to a file
+
+  <Callout>
+    Roadmap Item: allow user to upload file directly instead of having to
+    reference a url
+  </Callout>
+
+- ### `select`
+
+  Provides the user with a list of options to select one from.
+
+  Required property: `selectOptions`
+
+  ```ts
+  type SelectOptions = {
+    label: string;
+    value: string;
+  }[];
+  ```
+
+- ### `multi-select`
+
+  Similar to `select`
+
+  Provides the user with a list of options, however they can choose more than one.
+
+- ### `dynamic-select`
+
+  Similar to `select`, however the select options are fetched and returned to the user at runtime.
+
+  Required property: `_getDynamicValue`
+
+        The arguments passed to `_getDynamicValue` include the `projectId`, `agentId`, `workflowId`, `extraOptions` and/or the `connection`. Use these arguments to make an api call to return dynamic data.
+
+        <Callout>
+        `extraOptions` are values passed when using the `loadOptions.dependsOn`
+        property in your field config.
+
+        For example, if you make a `field B` depend on `field A`, then the `extraOptions` will contain the value of `field A`. This allows you to use the dependencies in retrieving dynamic data.
+        </Callout>
+
+- ### `dynamic-multi-select`
+
+  Similar to `dynamic-select`, however the more than one option can be selected.
+
+  Required property: `_getDynamicValue`
+
+- ### `date`
+
+  Field that allows the user to select a date. The date time defaults to midnight of the user's timezone.
+
+- ### `date-time`
+
+  Field that allows the user to select a date and time. The timezone will be the user's timezone
+
+- ### `date-range`
+
+  Field that allows the user to select a date range.
+
+- ### `switch`
+
+  Displays a toggle that the user can switch between.
+
+  Required property: `switchOptions`
+
+  ```ts
+  export type SwitchOptions = {
+    checked: string;
+    unchecked: string;
+    defaultChecked: boolean;
+  };
+  ```
+
+- ### `number`
+
+  Displays a number input field.
+
+  Optional property: `numberOptions`
+
+  ```ts
+  export type NumberOptions = {
+    max?: number;
+    min?: number;
+    step?: number;
+  };
+  ```
+
+- ### `map`
+
+Displays a key - value table
+
+Required property: `occurenceType: 'dynamic'`
+
+      <Callout type="warn">
+
+            Don't use this one unless you know what you're doing.
+
+            Might deprecate this or refactor how it works. Currently only used with `occurenceType: 'dynamic'` which is a hacky way to dynamically generate an input config with dynamic values.
+
+      </Callout>
+
+- ### `json`
+
+Displays a text input field, however there is some descriptive text saying it will be parsed as json.
+
+Eventually, I would like this field to automatically be parsed as json, but at the moment, we have to use the util function, `jsonParse`, to parse this value at runtime within the `run` method.
+
+<Callout type="warn">
+  Make sure you parse it or else the "json" users think they are passing will
+  just be treated as a string.
+</Callout>
+
+- ### `markdown`
+
+Displays markdown instead of an input. This is helpful when needing to provide extra information inside the configuration form.
+
+Required property: `markdown`
+
+<Callout>
+  You will still need to add an id, description, and label to the input field.
+  What is done at the moment is something like `id: 'markdown'`, `description:
+  ''`, `label: ''`
+</Callout>
+
+## Nested Fields
+
+Nested fields are used with `occurenceType: 'multiple'` to allow the UI to to display a group of fields that can be added multiple times.
+
+It is defined by creating an Input Field with an `inputConfig` field within it.
+
+```ts
+export type NestedInputConfig = {
+  id: string;
+  label: string;
+  description: string;
+  occurenceType: OccurenceType;
+  inputConfig: FieldConfig[];
+};
+```

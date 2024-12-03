@@ -1,0 +1,33 @@
+---
+title: AI Schema
+---
+
+The AI Schema is the schema that is given the an AI Agent to fill out the necessary fields to run an action as a tool.
+
+The schema is created using [Zod](https://zod.dev/).
+
+Here are a couple suggestions when creating a schema.
+
+1. Make sure each property has a description if the property key is not descriptive by iteself. This will help the AI know what the property is..
+2. Make sure if a property is not required, to add `.nullable().optional()` to the field.
+
+Here are a few _requirements_ when creating a schema.
+
+1. Make sure the AI Schema matches the Input Config as much as possible.
+
+   This is why every action file has
+
+   ```ts
+   type ConfigValue = z.infer<YourAction["aiSchema"]>;
+   ```
+
+   at the bottom of the file - to make sure the `aiSchema` zod type is used when writing the `run` function.
+
+   There are cases where the `inputConfig` is complex, using a lot of `loadOptions`, and dynamic values. In this case, the UI sometimes has extra fields to dynamically load a critical field for the action. You may omit those extra fields in the `aiSchema` since they're not used in the `run` function. Then you would update the `ConfigValue` type like this:
+
+   ```ts
+   type ConfigValue = z.infer<YourAction["aiSchema"]> & {
+     extraField1?: string;
+     extraField2?: string;
+   };
+   ```
