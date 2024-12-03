@@ -39,6 +39,12 @@ export const baseOptions: BaseLayoutProps = {
       url: "/ai-providers",
       active: "url",
     },
+    {
+      text: "Sign Up",
+      url: "https://app.lecca.io",
+      secondary: true,
+      type: "button",
+    },
   ],
   githubUrl: "https://github.com/lecca-digital/lecca-io",
 };

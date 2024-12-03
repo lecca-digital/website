@@ -156,7 +156,7 @@ function HomeBenefits() {
         <BenefitBlock
           title="Source Available"
           description={
-            "Host Lecca on your own infrastructure and customize it to fit your needs."
+            "Host Lecca.io on your own infrastructure and customize it to fit your needs."
           }
           icon={<CodeIcon className="size-10" />}
         />
