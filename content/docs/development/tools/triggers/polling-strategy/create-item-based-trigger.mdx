@@ -1,0 +1,170 @@
+---
+title: Create Item Based Trigger
+---
+
+<Callout>We are working on a CLI to make this easier</Callout>
+
+<Callout type="warn">
+  Only use this trigger type if you cannot use the Time Based trigger.
+  Timestamps are a more reliable way of determining new data, but if all you
+  have is a unique identifier, then this trigger should work fine. Just make
+  sure that the data you retrieve can be returned in a consistent order every
+  time.
+</Callout>
+
+<Steps>
+
+<Step>
+### Create triggers folder
+
+Locate the app your want to add a trigger for in the apps directory `/apps/server/apps/public/your-new-app`. Add a new folder if it doesnt exist already. Title it `triggers`.
+
+<Files>
+  <Folder name="apps" defaultOpen>
+    <Folder name="ui" />
+    <Folder name="server" defaultOpen>
+      <Folder name="src" defaultOpen>
+        <Folder name="apps" defaultOpen>
+          <Folder name="public" defaultOpen>
+            <Folder name="your-new-app" defaultOpen>
+              <Folder name="triggers" defaultOpen />
+              <File name="your-new-app.app.ts" />
+            </Folder>
+          </Folder>
+        </Folder>
+      </Folder>
+    </Folder>
+  </Folder>
+</Files>
+
+</Step>
+
+<Step>
+### Create trigger file
+
+Create a new file within your app's trigger folder. Call it something like `new-trigger.trigger.ts`. Make sure it ends with `.trigger.ts`.
+
+Add your own values. We provided mock data to help initialize the process.
+
+```ts
+import { InputConfig } from "@/apps/lib/input-config";
+import { RunTriggerArgs, ItemBasedPollTrigger } from "@/apps/lib/trigger";
+import { isValidMilli } from "@/apps/utils/is-valid-milli";
+
+import { YourNewApp } from "../your-new-app.app";
+
+export class NewTrigger extends ItemBasedPollTrigger {
+  app: YourNewApp;
+  id = "your-new-app_trigger_new-trigger";
+  name = "";
+  description = "";
+  inputConfig: InputConfig[] = [
+    //Add a configuration to display the form
+  ];
+
+  async run({
+    configValue,
+    connection,
+  }: RunTriggerArgs<ConfigValue>): Promise<Response[]> {
+    //This must return an array in descending order. Newest items first.
+  }
+
+  async mockRun(): Promise<Response[]> {
+    return [
+      //Must return an array descending order. Newest items first
+    ];
+  }
+
+  extractItemIdentifierFromResponse({
+    response,
+  }: {
+    response: Response;
+  }): string {
+    //Each element in the array response must have some sort of unique identifier.
+    //This method should extract that identifier.
+    //If the response does not have a unique id, then you cannot use the item based trigger
+    return args.response.some - identifier;
+  }
+}
+
+type Response = {
+  //Define the response item.
+};
+
+type ConfigValue = {
+  //Define your config value types from the inputConfig
+};
+```
+
+1.  Name the class: export class `NewTrigger`
+2.  Add an id: `your-new-app_trigger_new-trigger`
+
+    - Make sure the id follows the format `<app-id>_trigger_<trigger-id>`
+
+3.  Add a name
+4.  Add a description
+
+5.  Add an Input Config
+
+    This is used to generate the form for the UI to configure this action.
+
+    <Callout>
+      Read more about the [Input
+      Config](/docs/development/tools/configs/input-config)
+    </Callout>
+
+6.  Define the `run` method.
+
+    This method will run every time the trigger polls.
+
+    The common arguments used by this method are `configValue` and `connection`.
+
+    1. `configValue` represents the Input Config that was used when the user configured this trigger.
+    2. `connection` is the decrypted connection properties of the connection selected by the user when configuring this trigger.
+
+    Return an array of items in descending order. The newest items first.
+
+        <Callout>
+
+    It is very important that you return an array of items with the newest
+    items first in the array. The engine saves the newest item's id, and every
+    time it polls, it finds the index of that id in the newly polled data.
+    If that id doesn't exist in the new data, all the items are ran because they are considered new.
+    If the id does exist, then it grabs all the items that are earlier in the array from the matching index.
+    The id (acting as a pointer), is then updated to the newest id.
+
+        </Callout>
+
+7.  Define the `mock` method.
+
+    The `mock` method is used by users when they want to generate a mock output instead of making an real api call to their third party integration.
+
+    <Callout>
+      Ouput data is used to map to other nodes in the workflow builder. This is
+      done by clicking `Save & Test` in the configuration form.
+    </Callout>
+
+8.  Define the `extractItemIdentifierFromResponse` method.
+
+    Each result returned from the `run` method must have some sort of unique identifier that this method can extract and return.
+
+</Step>
+
+<Step>
+### Add new trigger to the app's triggers property
+
+```ts
+export class YourNewApp extends App {
+  ...
+
+  triggers(): Trigger[] {
+    return [new NewTrigger({ app: this })]; // [!code highlight]
+  }
+
+  ...
+}
+```
+
+</Step>
+
+</Steps>

@@ -34,7 +34,7 @@ Locate the app your want to add an action for in the apps directory `/apps/serve
 <Step>
 ### Create action file
 
-Create a new file within your app's action folder. Call it something like `new-action.app.ts`. Make sure it ends with `.action.ts`. Make sure the name is descriptive of the action yet succinct.
+Create a new file within your app's action folder. Call it something like `new-action.action.ts`. Make sure it ends with `.action.ts`.
 
 Add your own values. We provided mock data to help initialize the process.
 
@@ -54,7 +54,7 @@ export class NewAction extends Action {
   app: YourNewApp;
   id = "your-new-app_action_new-action";
   name = "";
-  description = "Find text using a query.";
+  description = "";
   aiSchema = z.object({
     //Use zod to create a schema
   });
@@ -100,7 +100,7 @@ type Response = {
 
    <Callout>
 
-   Read more about the [AI Schema](/docs/development/ai-schema).
+   Read more about the [AI Schema](/docs/development/tools/configs/ai-schema).
 
    </Callout>
 
@@ -109,7 +109,8 @@ type Response = {
    This is used to generate the form for the UI to configure this action.
 
    <Callout>
-     Read more about the [Input Config](/docs/development/input-config)
+     Read more about the [Input
+     Config](/docs/development/tools/configs/input-config)
    </Callout>
 
 7. Define the `run` function.
