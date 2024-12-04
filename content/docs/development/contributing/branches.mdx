@@ -2,7 +2,7 @@
 title: Branches
 ---
 
-Every branch merging to main or prod must be one of the approved prefixs listed below and a brief lowercase, hyphenated suffix. E.g. `feat/google-sheets-search-action`
+Every branch merging to main must be one of the approved prefixs listed below and a brief lowercase, hyphenated suffix. E.g. `feat/google-sheets-search-action`
 
 The source branch will be deleted after merging to `main`
 
@@ -21,13 +21,3 @@ Uses the same commit types as the prefix
 | `refactor/` | Restructuring or reorganizing the code without changing its external behavior                                                                    |
 | `build/`    | Changes that affect the build system, dependencies, or external tooling that supports the building of the project                                |
 | `chore/`    | Changes that are routine maintenance tasks, housekeeping, or updates that don’t modify application functionality, features, or visible behavior. |
-
-### Prod Branch
-
-When merging to prod, a build is automatically kicked off to deploy to production.
-
-| prefix     | description                                                                                    |
-| ---------- | ---------------------------------------------------------------------------------------------- |
-| `main`     | Typically we just merge main to prod if we don't need to cherry pick anything.                 |
-| `release/` | Release branch cherry picked to merge and deploy to production.                                |
-| `hotfix/`  | A branch that immediately can merge to production and skip main for quick fixes in production. |
