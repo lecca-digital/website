@@ -4,6 +4,9 @@
   "icon": "House",
   "pages": [
     "index",
+    "[Tools](/tools)",
+    "[AI Providers](/ai-providers)",
+
     "---Components---",
     "...components",
     "---Credits---",
