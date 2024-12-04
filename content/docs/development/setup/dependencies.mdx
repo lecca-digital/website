@@ -2,11 +2,47 @@
 title: Dependencies
 ---
 
-1. Clone the [lecca-io](https://github.com/lecca-digital/lecca-io.git) repo.
-2. `cd lecca-io`
-3. Install Node.js (version > 20) and npm
-4. Install pnpm globally:
-   `npm install -g pnpm`
-5. Install dependencies:
-   `pnpm install`
-6. (Optional) Install NX Console VS Code extension.
+Follow these steps to set up your development environment for contributing to the project.
+
+1. **Fork the Repository**:  
+   Visit the [lecca-io repository](https://github.com/lecca-digital/lecca-io.git) and click the **Fork** button in the top-right corner to create your own copy of the repository.
+
+2. **Clone Your Fork**:  
+   Clone your forked repository to your local machine:
+
+   ```bash
+   git clone https://github.com/<your-username>/lecca-io.git
+   ```
+
+3. **Navigate to the Project Directory**:
+
+   ```bash
+   cd lecca-io
+   ```
+
+4. **Set Up Remote for Updates** (Optional):  
+   Add the main repository as an upstream remote to fetch the latest updates:
+
+   ```bash
+   git remote add upstream https://github.com/lecca-digital/lecca-io.git
+   ```
+
+5. **Install Node.js (Version > 20) and npm**:  
+   Ensure you have Node.js and npm installed. You can download them from [nodejs.org](https://nodejs.org).
+
+6. **Install pnpm Globally**:  
+   Install the package manager `pnpm`:
+
+   ```bash
+   npm install -g pnpm
+   ```
+
+7. **Install Project Dependencies**:  
+   Run the following command to install all necessary dependencies:
+
+   ```bash
+   pnpm install
+   ```
+
+8. **(Optional) Install NX Console Extension**:  
+   If you're using VS Code, install the [NX Console extension](https://marketplace.visualstudio.com/items?itemName=nrwl.angular-console) for easier navigation and commands.
