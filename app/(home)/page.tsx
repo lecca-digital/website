@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import {
   CheckCircledIcon,
   ChevronRightIcon,
+  GitHubLogoIcon,
   PersonIcon,
 } from "@radix-ui/react-icons";
 import { ArrowLeftIcon, ChevronDownIcon, CodeIcon } from "lucide-react";
@@ -46,6 +47,15 @@ function HomeHero() {
     <HeroParallax>
       <main className="flex flex-1 flex-col items-center justify-center text-center space-y-8">
         <div className="flex flex-col space-x-2 items-center">
+          <h3 className="md:-mt-20 mb-8 md:mb-10 flex">
+            <a
+              href="https://github.com/lecca-digital/lecca-io"
+              className="text-sm hover:brightness-110 bg-muted px-4 py-1 border rounded-full flex items-center space-x-2"
+            >
+              <GitHubLogoIcon />
+              <span>Github</span>
+            </a>
+          </h3>
           <h1 className="text-2xl md:text-4xl font-bold">Lecca.io</h1>
           <h2> AI Agents & Automations </h2>
         </div>

@@ -40,6 +40,11 @@ export const baseOptions: BaseLayoutProps = {
       active: "url",
     },
     {
+      text: "Github",
+      url: "https://github.com/lecca-digital/lecca-io",
+      active: "url",
+    },
+    {
       text: "Sign Up",
       url: "https://app.lecca.io",
       secondary: true,
