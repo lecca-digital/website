@@ -11,23 +11,11 @@ Here are a couple suggestions when creating a schema.
 1. Make sure each property has a description if the property key is not descriptive by iteself. This will help the AI know what the property is..
 2. Make sure if a property is not required, to add `.nullable().optional()` to the field.
 
-Here are a few _requirements_ when creating a schema.
+Here is a _requirement_ when creating a schema.
 
-1. Make sure the AI Schema matches the Input Config as much as possible.
+- Make sure the AI Schema matches the Input Config as much as possible.
 
-   This is why every action file has
+  The AI Schema types are inferred and used to type the `configValue` argument in the run and mockRun functions of an action and trigger.
 
-   ```ts
-   type ConfigValue = z.infer<YourAction["aiSchema"]>;
-   ```
-
-   at the bottom of the file - to make sure the `aiSchema` zod type is used when writing the `run` function.
-
-   There are cases where the `inputConfig` is complex, using a lot of `loadOptions`, and dynamic values. In this case, the UI sometimes has extra fields to dynamically load a critical field for the action. You may omit those extra fields in the `aiSchema` since they're not used in the `run` function. Then you would update the `ConfigValue` type like this:
-
-   ```ts
-   type ConfigValue = z.infer<YourAction["aiSchema"]> & {
-     extraField1?: string;
-     extraField2?: string;
-   };
-   ```
+  There are cases where the `inputConfig` is complex, using a lot of `loadOptions`, and dynamic values. In this case, the UI sometimes has extra fields to dynamically load a critical field for the action. You may omit those extra fields in the `aiSchema` since they're not used in the `run` function.
+  But you will have to create your own type for the Input Config when defining the run function.

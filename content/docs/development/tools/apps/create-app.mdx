@@ -2,6 +2,8 @@
 title: Create App
 ---
 
+Create an app that will contain the actions and triggers available to your AI agents and workflow automations.
+
 <Callout>We are working on a CLI to make this easier</Callout>
 
 <Steps>
@@ -9,17 +11,17 @@ title: Create App
 <Step>
 ### Create new folder
 
-Locate apps directory `/apps/server/apps/public` and add a new folder with your app name. E.g. `your-new-app`.
+Locate the [apps directory](https://github.com/lecca-digital/lecca-io/tree/main/packages/apps/src/lib) and add a new folder with your app name. E.g. `your-new-app`.
 
 <Files>
-  <Folder name="apps" defaultOpen>
+  <Folder name="packages" defaultOpen>
     <Folder name="ui" />
-    <Folder name="server" defaultOpen>
+    <Folder name="server" />
+    <Folder name="toolkit" />
+    <Folder name="apps" defaultOpen>
       <Folder name="src" defaultOpen>
-        <Folder name="apps" defaultOpen>
-          <Folder name="public" defaultOpen>
-            <Folder name="your-new-app" />
-          </Folder>
+        <Folder name="lib" defaultOpen>
+          <Folder name="your-new-app" />
         </Folder>
       </Folder>
     </Folder>
@@ -35,84 +37,77 @@ Create a new file within your new app folder. Call it something like `your-new-a
 
 Add your own values. We provided mock data to help initialize the process.
 
-1. Name the class: export class `YourNewApp`
-1. Add an id: `your-new-app`
-1. Add a name: `Your New App`
-1. Add a description: `Does something cool`
-1. Needs Connection: `false` if it doesn't need authentication, just runs a function.
-1. Is Published: Set to `true` once it's ready to view in the UI.
-
 ```ts
-import { Action } from "@/apps/lib/action";
-import { App, AppContructorArgs } from "@/apps/lib/app";
-import { Connection } from "@/apps/lib/connection";
-import { Trigger } from "@/apps/lib/trigger";
-import { ServerConfig } from "@/config/server.config";
+import { createApp } from "@lecca-io/toolkit";
 
-export class YourNewApp extends App {
-  id = "";
-  name = "";
-  logoUrl = `${ServerConfig.INTEGRATION_ICON_BASE_URL}/apps/${this.id}.svg`;
-  description = "";
-  needsConnection: false;
-  isPublished = true;
-
-  connections(): Connection[] {
-    return [];
-  }
-
-  actions(): Action[] {
-    return [];
-  }
-
-  triggers(): Trigger[] {
-    return [];
-  }
-}
+export const yourNewApp = createApp({
+  id: "your-new-app",
+  name: "",
+  description: "",
+  logoUrl:
+    "https://lecca-io.s3.us-east-2.amazonaws.com/assets/apps/your-new-app.svg",
+  actions: [],
+  triggers: [],
+  connections: [],
+});
 ```
+
+1. `export const yourNewApp = createApp`
+2. Add an id in kebab-case, e.g. `your-new-app`
+3. Add a name for the app: `Your New App`
+4. Add brief one sentence description.
+5. Array of actions
+6. Array of triggers
+7. Array of connections
 
 </Step>
 
 <Step>
-### Add new app to the apps object
-
-Add your new app to the apps object found in the same directory you created your new app folder.
-`/apps/server/apps/public/apps.ts`.
+### Export your new app from the app's index.ts file
 
 <Files>
-  <Folder name="apps" defaultOpen>
+  <Folder name="packages" defaultOpen>
     <Folder name="ui" />
-    <Folder name="server" defaultOpen>
+    <Folder name="server" />
+    <Folder name="toolkit" />
+    <Folder name="apps" defaultOpen>
       <Folder name="src" defaultOpen>
-        <Folder name="apps" defaultOpen>
-          <Folder name="public" defaultOpen>
-            <Folder name="your-new-app" defaultOpen>
-              <File name="your-new-app.app.ts" />
-            </Folder>
-            <File name="apps.ts" />
-          </Folder>
+        <Folder name="lib">
+          <Folder name="your-new-app" />
         </Folder>
+        <File name="index.ts" />
       </Folder>
     </Folder>
   </Folder>
 </Files>
 
-Add it in alphabetical order to make development cleaner.
+Export it as a named export and add it to the `apps` export object.
 
-```ts
-const _APPS = {
-    ai: AI,
-    anthropic: Anthropic,
-    ...,
-    ...,
-    ...,
-    ...,
-    'x': X,
-    'your-new-app': YourNewApp, // [!code highlight]
-    'youtube': Youtube,
-    'zoho-books': ZohoBooks,
-    'zoho-crm': ZohoCrm
+```ts title="packages/apps/src/index.ts"
+
+//Add it to this object
+const apps: Record<string, ReturnType<typeof createApp>> = {
+  [ai.id]: ai,
+  [anthropic.id]: anthropic,
+  [apify.id]: apify,
+  ...
+  [youtube.id]: youtube,
+  [yourNewApp.id]: yourNewApp, // [!code highlight]
+  ...
+};
+
+//And add it to the named exports
+export {
+  ai,
+  anthropic,
+  apify,
+  ...
+  youtube,
+  yourNewApp, // [!code highlight]
+  ...
 }
+
+
 ```
 
 </Step>

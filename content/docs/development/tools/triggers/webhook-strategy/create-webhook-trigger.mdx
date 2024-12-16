@@ -9,19 +9,23 @@ title: Create App Webhook Trigger
 <Step>
 ### Create triggers folder
 
-Locate the app your want to add a trigger for in the apps directory `/apps/server/apps/public/your-new-app`. Add a new folder if it doesnt exist already. Title it `triggers`.
+Locate the your app folder in the [apps directory](https://github.com/lecca-digital/lecca-io/tree/main/packages/apps/src/lib/your-new-app) and add a new `triggers` folder if it doesn't exist already.
 
 <Files>
-  <Folder name="apps" defaultOpen>
+  <Folder name="packages" defaultOpen>
     <Folder name="ui" />
-    <Folder name="server" defaultOpen>
+    <Folder name="server" />
+    <Folder name="toolkit" />
+    <Folder name="apps" defaultOpen>
       <Folder name="src" defaultOpen>
-        <Folder name="apps" defaultOpen>
-          <Folder name="public" defaultOpen>
-            <Folder name="your-new-app" defaultOpen>
-              <Folder name="triggers" defaultOpen />
-              <File name="your-new-app.app.ts" />
+        <Folder name="lib" defaultOpen>
+          <Folder name="your-new-app" defaultOpen>
+            <Folder name="actions" />
+            <Folder name="connections" />
+            <Folder name="triggers" defaultOpen>
+              <File name="new-trigger.trigger.ts" />
             </Folder>
+            <File name="your-new-app.app.ts" />
           </Folder>
         </Folder>
       </Folder>
@@ -39,42 +43,28 @@ Create a new file within your app's trigger folder. Call it something like `new-
 Add your own values. We provided mock data to help initialize the process.
 
 ```ts
-import { InputConfig } from "@/apps/lib/input-config";
-import { RunTriggerArgs, WebhookAppTrigger } from "@/apps/lib/trigger";
+import { createAppWebhookTrigger } from "@lecca-io/toolkit";
 
-import { Slack } from "../slack.app";
-import { SlackWebhookBody } from "../types/slack.types";
+import { shared } from "../shared/slack.shared";
 
-export class NewMessage extends WebhookAppTrigger {
-  app: YourNewApp;
-  id = "your-new-app_trigger_new-trigger";
-  name = "";
-  description = "";
-  inputConfig: InputConfig[] = [
+export const newMessage = createAppWebhookTrigger({
+  id: "your-new-app_trigger_new-trigger",
+  name: "",
+  description: "Triggered when a new message is sent in a channel.",
+  inputConfig: [
     //Add a configuration to display the form
-  ];
-
-  async run({
-    inputData
-    configValue,
-  }: RunTriggerArgs<ConfigValue, WebhookBody>): Promise<Response[]> {
+  ],
+  run: async ({ inputData, configValue }) => {
     //the config value to transform the inputData (webhook body) before returning it as an array.
-    return [inputData]
-  }
-
-  async mockRun(): Promise<Response[]> {
+    return [inputData];
+  },
+  mockRun: async () => {
     return [
       //Return mock data, as array
     ];
-  }
-
-  webhookPayloadMatchesIdentifier({
-    webhookBody,
-    connectionMetadata,
-  }: {
-    webhookBody: WebhookBody;
-    connectionMetadata: { team?: { id: string } };
-  }): boolean {
+  },
+  eventType: "", //your app file needs to define a `parseWebhookEventType` property.
+  webhookPayloadMatchesIdentifier: ({ webhookBody, connectionMetadata }) => {
     //This is to check what workflows & connections this webhook is for.
     //Look at the connection metadata when a creation is made. Then look at the webhook body.
     //See if there are unique identifiers that match.
@@ -87,31 +77,20 @@ export class NewMessage extends WebhookAppTrigger {
     // }
 
     return false;
-  }
-}
-
-type WebhookBody = {
-  //Define what the webhook body will look like
-  //At least define the parts that are consistent, like identifiers
-};
-
-type Response = {
-  //Define the response item.
-};
-
-type ConfigValue = {
-  //Define your config value types from the inputConfig
-};
+  },
+});
 ```
 
-1.  Name the class: export class `NewTrigger`
+1.  `export const newTrigger = createTrigger`
+
+    - replace newTrigger with the name of your trigger.
+
 2.  Add an id: `your-new-app_trigger_new-trigger`
 
-    - Make sure the id follows the format `<app-id>_trigger_<trigger-id>`
+    - Make sure the id follows the format `<app-id>_trigger_<trigger-name-in-kebab-case>`
 
-3.  Add a name
-4.  Add a description
-
+3.  Add a name for your trigger
+4.  Add a brief one sentence description
 5.  Add an Input Config
 
     This is used to generate the form for the UI to configure this action.
@@ -127,8 +106,16 @@ type ConfigValue = {
 
     The common arguments used by this function are `configValue` and `connection`.
 
-    1. `configValue` represents the Input Config that was used when the user configured this trigger.
-    2. `connection` is the decrypted connection properties of the connection selected by the user when configuring this trigger.
+    1.  `configValue` represents the Input Config that was used when the user configured this trigger.
+    2.  `connection` is the decrypted connection properties of the connection selected by the user when configuring this trigger.
+
+        <Callout>
+
+        If using an oauth2 connection, do not worry about handling refresh
+        tokens, that is handled by the engine. Just make the api call assuming
+        the access token is valid.
+
+        </Callout>
 
     Use the input config values to transform, filter, or modify the `inputData` then return the `inputData` within an array.
 
@@ -143,7 +130,15 @@ type ConfigValue = {
       done by clicking `Save & Test` in the configuration form.
     </Callout>
 
-8.  Define the `webhookPayloadMatchesIdentifier` method
+8.  Define the `eventType` property.
+
+    A trigger may only trigger if the event payload matches some sort of event type property. A webhook trigger like slack may send multiple different types of webhooks, but we want to filter them to a certain type of webhook.
+
+    In your `<your-app>.app.ts` app file, you will need to define a `verifyWebhookRequest` and `parseWebhookEventType` argument in the `createApp` function.
+
+    You can look at an example of this implementation in the `slack.app.ts` file
+
+9.  Define the `webhookPayloadMatchesIdentifier` method
 
     Each webhook body payload should have some sort of identifier that you can match to the connection metadata.
 
@@ -176,16 +171,15 @@ type ConfigValue = {
 <Step>
 ### Add new trigger to the app's triggers property
 
-```ts
-export class YourNewApp extends App {
-  ...
+```ts title="your-new-app.app.ts"
+import { createApp } from "@lecca-io/toolkit";
 
-  triggers(): Trigger[] {
-    return [new NewTrigger({ app: this })]; // [!code highlight]
-  }
-
+export const yourNewApp = createApp({
   ...
-}
+  actions: [],
+  triggers: [newTrigger], // [!code highlight]
+  connections: [],
+});
 ```
 
 </Step>

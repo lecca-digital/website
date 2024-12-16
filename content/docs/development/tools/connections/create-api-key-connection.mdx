@@ -2,6 +2,8 @@
 title: Create API Key Connection
 ---
 
+Use an API key connection when needing to authenticate with a third party app using an API key
+
 <Callout>We are working on a CLI to make this easier</Callout>
 
 <Steps>
@@ -9,19 +11,23 @@ title: Create API Key Connection
 <Step>
 ### Create connections folder
 
-Locate the app your want to add a connection for in the apps directory `/apps/server/apps/public/your-new-app`. Add a new folder if it doesnt exist already. Title it `connections`.
+Locate the your app folder in the [apps directory](https://github.com/lecca-digital/lecca-io/tree/main/packages/apps/src/lib/your-new-app) and add a new `connections` folder if it doesn't exist already.
 
 <Files>
-  <Folder name="apps" defaultOpen>
+  <Folder name="packages" defaultOpen>
     <Folder name="ui" />
-    <Folder name="server" defaultOpen>
+    <Folder name="server" />
+    <Folder name="toolkit" />
+    <Folder name="apps" defaultOpen>
       <Folder name="src" defaultOpen>
-        <Folder name="apps" defaultOpen>
-          <Folder name="public" defaultOpen>
-            <Folder name="your-new-app" defaultOpen>
-              <Folder name="connections" defaultOpen />
-              <File name="your-new-app.app.ts" />
+        <Folder name="lib" defaultOpen>
+          <Folder name="your-new-app" defaultOpen>
+            <Folder name="actions" />
+            <Folder name="connections" defaultOpen>
+              <File name="your-new-app.api-key.ts" />
             </Folder>
+            <Folder name="triggers" />
+            <File name="your-new-app.app.ts" />
           </Folder>
         </Folder>
       </Folder>
@@ -39,39 +45,36 @@ Create a new file within your app's connection folder. For an api key connection
 Add your own values. We provided mock data to help initialize the process.
 
 ```ts
-import { ApiKeyConnection } from "@/apps/lib/connection";
-import { InputConfig } from "@/apps/lib/input-config";
+import { createApiKeyConnection } from "@lecca-io/toolkit";
 
-export class YourNewAppApiKey extends ApiKeyConnection {
-  id = "your-new-app_connection_api-key";
-  name = "API Key";
-  description = "Connect using an API key";
-  inputConfig: InputConfig[] = [];
-}
+export const yourNewAppApiKey = createApiKeyConnection({
+  id: "your-new-app_connection_api-key",
+  name: "Api Key",
+  description: "Connect using an API Key",
+});
 ```
 
-1. Name the class: Make sure the class starts with your app class name and ends with `<AppName>ApiKey`
+1. `export const yourNewAppBasicAuth` replacing `yourNewApp` with your app name.
 2. Add an id: `your-new-app_connection_api-key`
 
-   - Make sure the id follows the format `<app-id>_connection_api-key`
+   - Make sure the id follows the format `<app-id>_connection_api-key`.
 
-You don't need to modify the name, description, or input config
+3. You don't need to modify the name or description.
 
 </Step>
 
 <Step>
 ### Add new connection to the app's connections property
 
-```ts
-export class YourNewApp extends App {
-  ...
+```ts title="your-new-app.app.ts"
+import { createApp } from "@lecca-io/toolkit";
 
-  connections(): Connection[] {
-    return [new YourNewAppApiKey({ app: this })]; // [!code highlight]
-  }
-
+export const yourNewApp = createApp({
   ...
-}
+  actions: [],
+  triggers: [],
+  connections: [yourNewAppApiKey], // [!code highlight]
+});
 ```
 
 </Step>

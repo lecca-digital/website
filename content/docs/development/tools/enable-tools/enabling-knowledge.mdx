@@ -6,7 +6,12 @@ Lecca.io provides a way to easily upload files or text, chunk, embed, and save t
 
 <Callout>
   To get a deep dive into all available environment variables refer to
-  [`server.config.ts`](https://github.com/lecca-digital/lecca-io/blob/main/apps/server/src/config/server.config.ts).
+  [`server.config.ts`](https://github.com/lecca-digital/lecca-io/blob/main/packages/server/src/config/server.config.ts).
+</Callout>
+
+<Callout>
+  Roadmap Item: Use [Chroma](https://www.trychroma.com/) to embed and store data
+  locally without S3 or Pinecone
 </Callout>
 
 <Callout>
@@ -27,7 +32,7 @@ Lecca.io provides a way to easily upload files or text, chunk, embed, and save t
   Roadmap Item: Support multiple dimension sizes besides just 1536
 </Callout>
 
-We currently use S3, OpenAI's embedding model, and Pinecone to operate knowledge notebooks.
+We currently use S3, OpenAI's embedding model, and Pinecone to operate knowledge notebooks. We have plans to support [Chroma](https://www.trychroma.com/) for local embedding and vector storage.
 
 <Steps>
 <Step>

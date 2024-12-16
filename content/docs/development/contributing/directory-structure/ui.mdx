@@ -1,37 +1,37 @@
 ---
-title: UI Directories
+title: UI Package
 ---
 
-The [UI](/apps/ui) is built using [React](https://react.dev/), [Typescript](https://www.typescriptlang.org/), [Tailwind](https://tailwindcss.com/), and [React Query](https://tanstack.com/query/v5/docs/framework/react/overview).
+The UI is built using [React](https://react.dev/), [Typescript](https://www.typescriptlang.org/), [Tailwind](https://tailwindcss.com/), and [React Query](https://tanstack.com/query/v5/docs/framework/react/overview).
 
 The directory structure is the following:
 
-- [/apps/ui/src/api](/apps/ui/src/api) - All api services are found within this directory. Never make an api call without a service. Services are defined and added to the [api-library.ts](/apps/ui/src/api/api-library.ts). If you need to make an api call to the server, import `api` and use it like this: `api.agents.getList()`. It completely typed so you don't need to guess what parameters to pass. If you need to make an api call to the server within a component, use the react query hook wrapper the api library provides. You would use it like this within a component
+- `/packages/ui/src/api` - All api services are found within this directory. Never make an api call without a service. Services are defined and added to the api-library.ts. If you need to make an api call to the server, import `api` and use it like this: `api.agents.getList()`. It completely typed so you don't need to guess what parameters to pass. If you need to make an api call to the server within a component, use the react query hook wrapper the api library provides. You would use it like this within a component
 
-  ```ts
-  const { data: agents } = useApiQuery({
-    service: "agents",
-    method: "getList",
-    apiLibraryArgs: {},
-  });
-  ```
+```ts
+const { data: agents } = useApiQuery({
+  service: "agents",
+  method: "getList",
+  apiLibraryArgs: {},
+});
+```
 
-  This will cache the response until it reaches the stale time (defined in [api-library.ts](/apps/ui/src/api/api-library.ts)) or until invalidated.
+This will cache the response until it reaches the stale time (defined in api-library.ts) or until invalidated.
 
-- [/apps/ui/src/components](/apps/ui/src/api) - All resuable components should be defined in this folder. This includes reusable forms, loaders, tables, .etc. This is also where we have our [shadcn/ui](https://ui.shadcn.com/) components defined. They are in the [apps/ui/src/components/ui](/apps/ui/src/api) directory.
+- `/packages/ui/src/components` - All resuable components should be defined in this folder. This includes reusable forms, loaders, tables, .etc. This is also where we have our [shadcn/ui](https://ui.shadcn.com/) components defined. They are in the packages/ui/src/components/ui directory.
 
-- [/apps/ui/src/hooks](/apps/ui/src/api) - Define context hooks and any other hooks here. We don't use them much, but this is where you'd put them.
+- `/packages/ui/src/hooks` - Define context hooks and any other hooks here. We don't use them much, but this is where you'd put them.
 
-- [apps/ui/src/models](/apps/ui/src/models) - This is where we define all the types for the models we use throughout the platform. Any entity that is sent from the server should have a type. We define types using zod schemas and then export the type as well using `z.infer<typeof zodSchema>`.
+- `packages/ui/src/models` - This is where we define all the types for the models we use throughout the platform. Any entity that is sent from the server should have a type. We define types using zod schemas and then export the type as well using `z.infer<typeof zodSchema>`.
 
-  The reason we use zod schema is because we used to (and still may) mock all requests using zod and faker and having the zod schemas defined allowed the mock data to take the shape of the expected model. This will be useful for testing with mocked calls.
+The reason we use zod schema is because we used to (and still may) mock all requests using zod and faker and having the zod schemas defined allowed the mock data to take the shape of the expected model. This will be useful for testing with mocked calls.
 
-  If you are making a schema always end it with `schema`. E.g. `agentSchema`. And the type that is exported will just be `Agent`. E.g. `export type Agent = z.infer<typeof agentSchema>`
+If you are making a schema always end it with `schema`. E.g. `agentSchema`. And the type that is exported will just be `Agent`. E.g. `export type Agent = z.infer<typeof agentSchema>`
 
-  Every property besides `id` and `name` should be optional. Since additional properties are only returned when expansions are added to the api call.
+Every property besides `id` and `name` should be optional. Since additional properties are only returned when expansions are added to the api call.
 
-- [apps/ui/src/pages](/apps/ui/src/pages) - Every root page should have it's own folder. For example, to create the `projects` page, a `projects` folder was created and a `projects-page.tsx` file was created within there. All nested pages should be created within that `projects` folder. There's no strict structure for sub pages.
+- `packages/ui/src/pages` - Every root page should have it's own folder. For example, to create the `projects`page, a`projects`folder was created and a`projects-page.tsx`file was created within there. All nested pages should be created within that`projects` folder. There's no strict structure for sub pages.
 
-  All new pages must have a route. You can modify the routes in `apps/ui/src/router/routes.tsx`.
+All new pages must have a route. You can modify the routes in `packages/ui/src/router/routes.tsx`.
 
-- [apps/ui/src/utils](/apps/ui/src/utils) - Any common utility functions should be added to this directory.
+- `packages/ui/src/utils` - Any common utility functions should be added to this directory.

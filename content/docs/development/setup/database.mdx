@@ -6,11 +6,15 @@ Before starting the server, you'll need a running database. This can be done usi
 
 1. Install Docker for your OS if you don't have it.
 2. Run the following command (customize values as needed):
-   `docker run --name docker-container-name -d
--e POSTGRES_DB=mydb
--e POSTGRES_PASSWORD=password123
--e POSTGRES_USER=postgres
--p "5432:5432" postgres
-`
-3. Run the following command to migrate your database to match the prisma schema.
-   `pnpm prisma migrate dev`
+
+   ```docker
+   docker run --name docker-container-name -d -e POSTGRES_DB=mydb -e POSTGRES_PASSWORD=password123 -e POSTGRES_USER=postgres -p "5432:5432" postgres
+   ```
+
+   <Callout>
+     Make sure to `docker-container-name` to whatever name you want your
+     container to be. Also make sure these database values match your .env
+     database values
+   </Callout>
+
+3. Run the following command to migrate your database to match the prisma schema. `pnpm prisma migrate dev`

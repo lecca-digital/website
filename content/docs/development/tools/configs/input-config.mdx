@@ -6,6 +6,46 @@ The Input Config is the schema that defines the form seen in the UI when configu
 
 The input config is comprised of input fields of different types. Some are text, select, numbers, json, and even nested fields.
 
+<Callout>
+  The `@lecca-io/toolkit` package in the monorepo (and available in npm)
+  provides typed functions to help you create input fields easily.
+
+All these are exported from the package.
+
+```
+export * from './createDateInputField';
+export * from './createDateRangeInputField';
+export * from './createDateTimeInputField';
+export * from './createDynamicMultiSelectInputField';
+export * from './createDynamicSelectInputField';
+export * from './createFileInputField';
+export * from './createJsonInputField';
+export * from './createMapInputField';
+export * from './createMultiSelectInputField';
+export * from './createNestedFields';
+export * from './createNumberInputField';
+export * from './createSelectInputField';
+export * from './createSwitchInputField';
+export * from './createTextInputField';
+export * from './createMarkdownField';
+```
+
+You can use them like
+
+```ts
+inputConfig: [
+  createTextInputField({
+    id: "name",
+    label: "Name", // [!code highlight]
+    description: "Name of recipient",
+  }),
+];
+```
+
+Then you don't have to guess what properties are required for what input type.
+
+</Callout>
+
 Let's go over the properties, then we'll go into depth on the input types and the properties required for certain input types.
 
 ## Properties on Field Config
@@ -18,8 +58,15 @@ Let's go over the properties, then we'll go into depth on the input types and th
 
   ```ts
 
-  async run({ configValue }) {
-    const { name } = configValue
+  inputConfig: [
+    createTextInputField({
+      id: 'name',
+      label: 'Name', // [!code highlight]
+      description: 'Name of recipient',
+    }),
+  ],
+  run: async ({ configValue }) {
+    const { name } = configValue // [!code highlight]
     ...
   }
 
@@ -48,7 +95,7 @@ Let's go over the properties, then we'll go into depth on the input types and th
   }
   ```
 
-  Always use `warning` for better UX. Or else the node will be red as soon as a user starts configuring it.
+  Always use `warning` for better UX. Or else the node will be red as soon as a user starts configuring it (because the field isn't filled out yet).
 
 - ### `loadOptions`
 

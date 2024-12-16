@@ -9,19 +9,23 @@ title: Create Action
 <Step>
 ### Create actions folder
 
-Locate the app your want to add an action for in the apps directory `/apps/server/apps/public/your-new-app`. Add a new folder if it doesnt exist already. Title it `actions`.
+Locate the your app folder in the [apps directory](https://github.com/lecca-digital/lecca-io/tree/main/packages/apps/src/lib/your-new-app) and add a new `actions` folder if it doesn't exist already.
 
 <Files>
-  <Folder name="apps" defaultOpen>
+  <Folder name="packages" defaultOpen>
     <Folder name="ui" />
-    <Folder name="server" defaultOpen>
+    <Folder name="server" />
+    <Folder name="toolkit" />
+    <Folder name="apps" defaultOpen>
       <Folder name="src" defaultOpen>
-        <Folder name="apps" defaultOpen>
-          <Folder name="public" defaultOpen>
-            <Folder name="your-new-app" defaultOpen>
-              <Folder name="actions" defaultOpen />
-              <File name="your-new-app.app.ts" />
+        <Folder name="lib" defaultOpen>
+          <Folder name="your-new-app" defaultOpen>
+            <Folder name="actions" defaultOpen>
+              <File name="new-action.action.ts" />
             </Folder>
+            <Folder name="connections" />
+            <Folder name="triggers" />
+            <File name="your-new-app.app.ts" />
           </Folder>
         </Folder>
       </Folder>
@@ -34,66 +38,35 @@ Locate the app your want to add an action for in the apps directory `/apps/serve
 <Step>
 ### Create action file
 
-Create a new file within your app's action folder. Call it something like `new-action.action.ts`. Make sure it ends with `.action.ts`.
+Create a new file within your app's action folder. Make sure it ends with `.action.ts`.
 
 Add your own values. We provided mock data to help initialize the process.
 
 ```ts
+import { createAction, createTextInputField } from "@lecca-io/toolkit";
 import { z } from "zod";
 
-import {
-  Action,
-  ActionConstructorArgs,
-  RunActionArgs,
-} from "@/apps/lib/action";
-import { InputConfig } from "@/apps/lib/input-config";
-import { NodeViewOptions } from "@/apps/lib/trigger";
-import { ServerConfig } from "@/config/server.config";
-
-export class NewAction extends Action {
-  app: YourNewApp;
-  id = "your-new-app_action_new-action";
-  name = "";
-  description = "";
-  aiSchema = z.object({
-    //Use zod to create a schema
-  });
-  inputConfig: InputConfig[] = [
-    //Add a configuration to display the form
-  ];
-
-  async run({
-    configValue,
-    connection,
-  }: RunActionArgs<ConfigValue>): Promise<Response> {
-    //Define the run function and return the output you want returned from the tool.
-    //configValue is the values that were passed via the form or the ai schema.
-  }
-
-  async mockRun({
-    configValue,
-  }: RunActionArgs<ConfigValue>): Promise<Response> {
-    //Return a value that represents the shape of the object that would be
-    //returned when someone runs this action.
-    //This is used when someone doesn't want to run this action with real data
-    //but need data to map the data to other steps in a workflow.
-  }
-}
-
-type ConfigValue = z.infer<Search["aiSchema"]>;
-
-type Response = {
-  //Define your response type
-};
+export const newAction = createAction({
+  id: "your-new-app_action_new-action",
+  name: "",
+  description: "",
+  aiSchema: z.object({}),
+  inputConfig: [],
+  run: async ({ configValue, connection }) => {},
+  mockRun: async () => {},
+});
 ```
 
-1. Name the class: export class `YourNewApp`
+1. `export const newAction = createAction`
+
+   - Replace newAction with the name of your action.
+
 2. Add an id: `your-new-app_action_new-action`
 
-   - Make sure the id follows the format `<app-id>_action_<action-id>`
+   - Make sure the id follows the format `<app-id>_action_<action-name-in-kebab-case>`
 
-3. Add a name: `New Action`
-4. Add a description: `Does something cool`
+3. Add a name for your action
+4. Add a brief one sentence description
 5. Add an AI Schema
 
    This is a [zod schema](https://zod.dev/) used for AI to "fill out" the form to configure this action.
@@ -120,7 +93,13 @@ type Response = {
    The common arguments used by this function are `configValue` and `connection`.
 
    1. `configValue` represents the Input Config or AI Schema that was used when the user or AI agent configuring this action.
-   2. `connection` is the decrypted connection properties of the connection selected by the user when configuring this action.
+   2. `connection` is the decrypted connection properties of the connection selected by the user when configuring this action. May contain an api key, accessToken, username & pass, or key pairs.
+
+      <Callout>
+        If using an oauth2 connection, do not worry about handling refresh
+        tokens, that is handled by the engine. Just make the api call assuming
+        the access token is valid.
+      </Callout>
 
 8. Define the `mock` function.
 
@@ -136,16 +115,15 @@ type Response = {
 <Step>
 ### Add new action to the app's actions property
 
-```ts
-export class YourNewApp extends App {
-  ...
+```ts title="your-new-app.app.ts"
+import { createApp } from "@lecca-io/toolkit";
 
-  actions(): Action[] {
-    return [new NewAction({ app: this })]; // [!code highlight]
-  }
-
+export const yourNewApp = createApp({
   ...
-}
+  actions: [newAction], // [!code highlight]
+  triggers: [],
+  connections: [],
+});
 ```
 
 </Step>
