@@ -19,16 +19,20 @@ This trigger is the most fragile, and should be a last resort if dealing with da
 Locate the your app folder in the [apps directory](https://github.com/lecca-digital/lecca-io/tree/main/packages/apps/src/lib/your-new-app) and add a new `triggers` folder if it doesn't exist already.
 
 <Files>
-  <Folder name="apps" defaultOpen>
+  <Folder name="packages" defaultOpen>
     <Folder name="ui" />
-    <Folder name="server" defaultOpen>
+    <Folder name="server" />
+    <Folder name="toolkit" />
+    <Folder name="apps" defaultOpen>
       <Folder name="src" defaultOpen>
-        <Folder name="apps" defaultOpen>
-          <Folder name="public" defaultOpen>
-            <Folder name="your-new-app" defaultOpen>
-              <Folder name="triggers" defaultOpen />
-              <File name="your-new-app.app.ts" />
+        <Folder name="lib" defaultOpen>
+          <Folder name="your-new-app" defaultOpen>
+            <Folder name="actions" />
+            <Folder name="connections" />
+            <Folder name="triggers" defaultOpen>
+              <File name="new-trigger.trigger.ts" />
             </Folder>
+            <File name="your-new-app.app.ts" />
           </Folder>
         </Folder>
       </Folder>
