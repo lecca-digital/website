@@ -13,11 +13,11 @@ export const baseOptions: BaseLayoutProps = {
     title: (
       <div className="flex items-center space-x-2">
         <Image
-          src="/branding/lecca-io.svg"
-          width={20}
-          height={20}
+          src="/branding/lecca-io-logo-icon-96.png"
+          width={30}
+          height={30}
           alt="Lecca.io Logo"
-          className="rounded-full"
+          className="rounded-full border-[.5px]"
         />
         <span>Lecca.io</span>
       </div>

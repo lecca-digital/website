@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { HomeLayout } from "fumadocs-ui/layouts/home";
 import { baseOptions } from "@/app/layout.config";
 import Link from "next/link";
+import { Metadata } from "next";
 
 export default function Layout({
   children,
@@ -16,6 +17,10 @@ export default function Layout({
     </HomeLayout>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Lecca.io | No-code AI agent and automation platform",
+};
 
 function Footer() {
   return (
