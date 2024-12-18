@@ -46,23 +46,14 @@ function HomeHero() {
   return (
     <HeroParallax>
       <main className="flex flex-1 flex-col items-center justify-center text-center space-y-8">
-        <div className="flex flex-col items-center space-y-6">
-          <h3 className="md:-mt-20 mb-8 md:mb-10 flex">
-            <a
-              href="https://github.com/lecca-digital/lecca-io"
-              className="text-sm hover:brightness-110 bg-muted px-4 py-1 border rounded-full flex items-center space-x-2"
-            >
-              <GitHubLogoIcon />
-              <span>Github</span>
-            </a>
-          </h3>
-          <h1 className="flex items-center space-x-3 font-bold">
+        <div className="flex flex-col items-center space-y-6 lg:-mt-12">
+          <h1 className="flex items-center space-x-3 font-bold flex-col space-y-3">
             <Image
               src="/branding/lecca-io-logo-icon-500.png"
-              width={70}
-              height={70}
+              width={80}
+              height={80}
               alt="Lecca.io Logo"
-              className="rounded-full border-[.5px]"
+              className="rounded-full border-[.5px] hidden md:block"
             />
             <span className="text-2xl md:text-5xl ">Lecca.io</span>
           </h1>
