@@ -8,7 +8,6 @@ import { cn } from "@/lib/utils";
 import {
   CheckCircledIcon,
   ChevronRightIcon,
-  GitHubLogoIcon,
   PersonIcon,
 } from "@radix-ui/react-icons";
 import { ArrowLeftIcon, ChevronDownIcon, CodeIcon } from "lucide-react";
