@@ -1,0 +1,146 @@
+---
+title: Installation
+---
+
+## Prerequisites
+
+- Docker and Docker Compose installed on your system
+- Clone the repo https://github.com/lecca-digital/lecca-io
+- navigate to the repo `cd lecca-io`
+
+## Initial Setup
+
+1. Setup environment variables
+
+   Run the `setup-env.sh` or `setup-env.ps1` scripts in the `./scripts` directory to generate a `.env` file for you or you can manually generate your `.env` file using the `.env.example` file as a reference.
+
+   <Callout>
+     If on Mac or Linux Make the script executable. ```chmod +x
+     ./scripts/setup-env.sh``` then run the script `./script/setup-env.sh`
+   </Callout>
+
+   <Callout>If on Windows run the script `./scripts/setup-env.ps1`</Callout>
+
+   <Callout type="warn">
+     This script will override any existing `.env` file you already have. So
+     this is mainly used when you are setting up things for the first time.
+   </Callout>
+
+2. Start the application:
+
+   ```bash
+   docker compose up -d
+   ```
+
+   This command will:
+
+   - Create necessary networks and volumes
+   - Pull all required Docker images
+   - Start all services (PostgreSQL, Server, and UI)
+
+   You should now be able to navigate to your CLIENT_URL and use the platform.
+
+## Managing Your Application
+
+### Checking Services Status
+
+Check if all services are running:
+
+```bash
+docker compose ps
+```
+
+### Viewing Logs
+
+View logs for all services:
+
+```bash
+docker compose logs
+```
+
+View logs for specific services:
+
+```bash
+# UI logs
+docker compose logs ui
+
+# Server logs
+docker compose logs server
+
+# Database logs
+docker compose logs postgres
+
+# Follow logs in real-time (add -f flag)
+docker compose logs -f server
+```
+
+### Stopping and Starting Services
+
+Stop all services:
+
+```bash
+docker compose down
+```
+
+Start all services:
+
+```bash
+docker compose up -d
+```
+
+### Complete Cleanup
+
+To remove all containers, networks, and volumes:
+
+```bash
+docker compose down -v
+```
+
+<Callout type="warn">
+  Using the -v flag will remove all volumes and delete your database data. Only
+  use this if you want to completely reset your installation.
+</Callout>
+
+## Troubleshooting
+
+### Common Issues
+
+1. Services won't start
+
+   ```bash
+   # Check for port conflicts
+   docker compose ps
+   # Check detailed logs
+   docker compose logs
+   ```
+
+   Common causes:
+
+   - Port conflicts (5173, 9094, or 5432 already in use)
+   - Environment variables not set correctly
+   - Insufficient permissions
+
+2. Database connection issues
+
+   ```bash
+   # Check database health
+   docker compose ps postgres
+   # Check database logs
+   docker compose logs postgres
+   ```
+
+   Common causes:
+
+   - Incorrect database credentials in .env
+   - Database initialization failed
+   - Volume permissions issues
+
+3. Server can't connect to database
+   ```bash
+   # Check server logs
+   docker compose logs server
+   ```
+   Common causes:
+   - `DATABASE_URL` not properly configured
+   - Database not ready when server starts
+   - Network issues between containers
