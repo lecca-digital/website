@@ -14,7 +14,6 @@ import { ArrowLeftIcon, ChevronDownIcon, CodeIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { IntegrationsCarousel } from "@/components/integrations-carousel";
-import { useTheme } from "@/hooks/useTheme";
 import {
   Card,
   CardContent,
@@ -40,8 +39,6 @@ export default function HomePage() {
 }
 
 function HomeHero() {
-  const isDarkMode = useTheme();
-
   return (
     <HeroParallax>
       <main className="flex flex-1 flex-col items-center justify-center text-center space-y-8">
@@ -62,19 +59,14 @@ function HomeHero() {
           </h2>
         </div>
         <div className="max-w-[1000px] mt-10 lg:mt-0 sm:px-10">
-          <Image
-            src={
-              isDarkMode
-                ? "/gifs/demo-gif-dark.gif"
-                : "/gifs/demo-gif-light.gif"
-            }
-            alt="Workflow Demo"
+          <video
+            src={"/videos/agent-demo.mp4"}
             width={1900}
             height={800}
+            autoPlay={true}
+            controls
+            loop
             className="rounded-md border-4 shadow-lg"
-            loading="lazy"
-            placeholder="blur"
-            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHiQrJR8lQj47MS0yPTQ7MTJAWkpOOU9UTUZLYWlXX2FzhYx1dntndWpBQWf/2wBDARUXFyAeIR4eIUBBIDBFQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUH/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
           />
         </div>
         <div className="space-x-2 flex flex-col sm:flex-row gap-4">
