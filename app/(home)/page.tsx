@@ -653,7 +653,7 @@ function HomePricing() {
               <Feature title="1500 credits per month" />
               <Feature title="15 minute polling trigger" />
               <Feature title="Execution history 1 week" />
-              <Feature title="Agent task doesn't clear" />
+              <Feature title="Agent task history won't clear" />
             </ul>
           </CardContent>
           <CardFooter>
