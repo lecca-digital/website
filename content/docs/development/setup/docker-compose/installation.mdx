@@ -40,6 +40,17 @@ title: Installation
 
    You should now be able to navigate to your CLIENT_URL and use the platform.
 
+3. Open up browser and go to `https://localhost:5173`
+
+   <Callout type="warn">
+     The UI docker image expects the server url to be `http://localhost:9094`.
+     The `setup-env` script will set that up for you. If you for some reason
+     want to change the server url, you would need to update the
+     `packages/ui/Dockerfile` and build a new UI image with the updated server
+     url. Then you would need to update the `docker-compose.yml` file to use
+     your custom UI docker image instead of the one we provide.
+   </Callout>
+
 ## Managing Your Application
 
 ### Checking Services Status
