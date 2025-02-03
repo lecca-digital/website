@@ -54,35 +54,30 @@ function Footer() {
             <li>
               <Link href="/privacy">Privacy Policy</Link>
             </li>
-            {/* <li>
-            <Link href="/contact">Contact</Link>
-          </li>
-          <li>
-            <Link href="/report-issue">Report an issue</Link>
-          </li>
-          <li>
-            <Link href="/request-integration">Request an integration</Link>
-          </li> */}
             <li>
-              <Link href="/docs/overview">Docs</Link>
+              <Link href="/docs/overview">Documentation</Link>
             </li>
-            {/* <li>
-            <Link href="/faq">FAQ</Link>
-          </li> */}
+            <li>
+              <Link href="https://github.com/lecca-digital/lecca-io">
+                Github
+              </Link>
+            </li>
+            <li>
+              <Link href="https://github.com/lecca-digital/lecca-io/blob/main/CHANGELOG.md">
+                Changelog
+              </Link>
+            </li>
           </ul>
         </section>
         <section className="flex flex-col space-y-2">
           <h3 className="font-bold">Product</h3>
           <ul className="text-muted-foreground text-sm space-y-2">
-            {/* <li>
-            <Link href="/features">Features</Link>
-          </li> */}
             <li>
-              <Link href="/integrations">Integrations</Link>
+              <Link href="/tools">Tools</Link>
             </li>
-            {/* <li>
-            <Link href="/changelog">Changelog</Link>
-          </li> */}
+            <li>
+              <Link href="/ai-providers">AI Providers</Link>
+            </li>
             <li>
               <Link href="/#pricing">Pricing</Link>
             </li>

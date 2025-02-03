@@ -9,6 +9,7 @@ import Image from "next/image";
  * Docs Layout: app/docs/layout.tsx
  */
 export const baseOptions: BaseLayoutProps = {
+  disableThemeSwitch: true,
   nav: {
     title: (
       <div className="flex items-center space-x-2">
@@ -37,6 +38,11 @@ export const baseOptions: BaseLayoutProps = {
     {
       text: "AI Providers",
       url: "/ai-providers",
+      active: "url",
+    },
+    {
+      text: "Pricing",
+      url: "/#pricing",
       active: "url",
     },
     {

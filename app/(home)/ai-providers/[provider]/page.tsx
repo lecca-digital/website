@@ -63,7 +63,8 @@ export default async function ProviderPage(props: {
           <div className="space-y-4">
             {Object.keys(provider.languageModels).length === 0 ? (
               <div className="text-muted-foreground text-sm flex items-center justify-center p-10">
-                There are no language models
+                This provider loads language models dynamically using your API
+                Key
               </div>
             ) : (
               Object.entries(provider.languageModels).map(
@@ -102,7 +103,8 @@ export default async function ProviderPage(props: {
           <div className="space-y-4">
             {Object.keys(provider.embeddingModels).length === 0 ? (
               <div className="text-muted-foreground text-sm flex items-center justify-center p-10">
-                There are no embedding models
+                This provider loads embedding models dynamically using your API
+                Key
               </div>
             ) : (
               Object.entries(provider.embeddingModels).map(
