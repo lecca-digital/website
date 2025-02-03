@@ -50,7 +50,7 @@ function HomeHero() {
           </span>
           <br />
         </h2>
-        <h3>
+        <h3 className="opacity-0 animate-fade-in-delayed-1.5s">
           Customer support, sales prospecting, replying to emails, managing
           calendars, updating CRMs, making phone calls, searching the web, and
           more.
